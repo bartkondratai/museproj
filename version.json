@@ -1,12 +1,12 @@
 {
-  "version": "v260821.09 4:05p",
-  "release": 9,
-  "sha": "c308d6b",
-  "fullSha": "c308d6bfc136bde3e716ba8acc08601035759a4c",
+  "version": "v260821.10 4:20p",
+  "release": 10,
+  "sha": "6d4cea3",
+  "fullSha": "6d4cea34455e124920cadf299da99906d33b0859",
   "actor": "bartkondratai",
   "source": "cloudflare-pages-deploy",
   "model": "ci",
   "machine": "runnervm76f27",
-  "pushedAt": "2026-08-21T18:04:50+02:00",
-  "commits": [{"sha":"0fbfb3c","message":"Add EN/PL language toggle to /bart page","author":"Bart Kondrat"},{"sha":"c308d6b","message":"Merge remote-tracking branch 'origin/main'","author":"Bartosz Kondrat"}]
+  "pushedAt": "2026-08-21T18:20:17+02:00",
+  "commits": [{"sha":"077d549","message":"Update /bart bio: correct career framing, add Fundacja BeArt & Music, refresh links","author":"Bart Kondrat"},{"sha":"6d4cea3","message":"Merge remote-tracking branch 'origin/main'","author":"Bartosz Kondrat"}]
 }
