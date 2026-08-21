@@ -1,12 +1,12 @@
 {
-  "version": "v260821.06 1:29p",
-  "release": 6,
-  "sha": "a695e99",
-  "fullSha": "a695e9947b0706528726d214498554e0be018a5e",
+  "version": "v260821.07 1:34p",
+  "release": 7,
+  "sha": "f5e84a4",
+  "fullSha": "f5e84a4ff570db90b3149b61f3bd892cbd5c6917",
   "actor": "bartkondratai",
   "source": "cloudflare-pages-deploy",
   "model": "ci",
   "machine": "runnervm76f27",
-  "pushedAt": "2026-08-21T15:29:30+02:00",
-  "commits": [{"sha":"a695e99","message":"Trigger deploy now that Cloudflare Pages credentials are configured","author":"Bartosz Kondrat"}]
+  "pushedAt": "2026-08-21T15:34:33+02:00",
+  "commits": [{"sha":"f5e84a4","message":"Trim /systeminfo to services with real accounts and credentials","author":"Bartosz Kondrat"}]
 }
