@@ -12,13 +12,21 @@
 
 ## How it fits together
 
-The browser calls `beartandmusic.pl` for the public site. Internal-only paths redirect to
+**GitHub** holds the source and runs the deploy on every push to `main`. The browser
+calls `beartandmusic.pl` for the public site; internal-only paths redirect to
 `in.beartandmusic.pl`, which Cloudflare Access gates behind Google sign-in, restricted to
 a single allowed account. Everything server-side goes through **Supabase**: it's the
 database, the auth provider, the file store, and the host for the edge functions. Those
 functions call out to **Resend** for email and **OpenRouter** for AI-assisted features.
 
+Two AI coding agents maintain this repo: **Claude Code** (reads `CLAUDE.md`) does most of
+the direct work, and **Codex** (reads `AGENTS.md`) delegates well-scoped code generation
+to **DeepSeek v4 Flash** via OpenRouter. DeepSeek is not a separate service — it's a model
+accessed through the OpenRouter gateway already listed below.
+
 ```
+GitHub (repo + Actions CI) ──deploys──► Cloudflare Pages
+
 Browser
    │
    ▼
@@ -28,10 +36,12 @@ Cloudflare Pages + Access  (public: beartandmusic.pl · internal: in.beartandmus
 Supabase (Postgres DB · Auth · Storage · Edge Functions)
    │
    ├──► Resend (email)
-   └──► OpenRouter (LLM gateway for AI-assisted features)
+   └──► OpenRouter (DeepSeek v4 Flash & other models)
+
+Dev tooling (not runtime services): Claude Code, Codex → OpenRouter/DeepSeek
 ```
 
-## Hosting & Routing
+## Hosting & Identity
 
 | Service | Cost | What it does |
 |---|---|---|
@@ -39,6 +49,12 @@ Supabase (Postgres DB · Auth · Storage · Edge Functions)
 | Cloudflare DNS | Free | DNS and SSL for `beartandmusic.pl` and `in.beartandmusic.pl`. |
 | Cloudflare Access | Free | Gates `in.beartandmusic.pl` at the edge, before any page code runs. |
 | Google OAuth | Free | Identity provider for Cloudflare Access — sign-in restricted to `bart.kondrat@gmail.com`. |
+
+## Source Control & CI
+
+| Service | Cost | What it does |
+|---|---|---|
+| GitHub | Free | Hosts the repo. GitHub Actions builds Tailwind, bumps the version, and deploys to Cloudflare Pages on every push to `main`. |
 
 ## Backend
 
@@ -51,7 +67,14 @@ Supabase (Postgres DB · Auth · Storage · Edge Functions)
 | Service | Cost | What it does |
 |---|---|---|
 | Resend | Free tier | Sends and receives system email. |
-| OpenRouter | Pay-as-you-go | Multi-model LLM gateway powering AI-assisted edge functions. |
+| OpenRouter | Pay-as-you-go | Multi-model LLM gateway. Currently routes to DeepSeek v4 Flash for AI-assisted edge functions and code-generation delegation. |
+
+## AI Coding Agents (dev tooling, not runtime services)
+
+| Agent | Instructions file | What it does |
+|---|---|---|
+| Claude Code | `CLAUDE.md` | Primary agent for building and maintaining this repo — runs migrations, pushes deploys directly. |
+| Codex | `AGENTS.md` | Secondary coding agent — delegates well-scoped code generation to DeepSeek v4 Flash via OpenRouter (`scripts/ask-deepseek.js`). |
 
 ## Domain routing
 

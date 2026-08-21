@@ -12,105 +12,190 @@
   <link rel="stylesheet" href="/styles/site.css">
   <link rel="stylesheet" href="/styles/tailwind.out.css">
   <style>
-    .si-container { max-width: 1000px; margin: 0 auto; padding: calc(80px + 2rem) 1.5rem 4rem; }
-    .si-header { margin-bottom: 2rem; }
-    .si-header h1 { font-size: 1.9rem; font-weight: 700; margin-bottom: 0.35rem; }
-    .si-header p { color: var(--aap-text-muted); font-size: 0.95rem; max-width: 640px; }
-    .si-back { font-size: 0.85rem; color: var(--aap-text-muted); text-decoration: none; margin-bottom: 0.75rem; display: inline-block; }
+    .si-page {
+      background:
+        radial-gradient(880px 420px at 12% -8%, rgba(212,136,58,0.12), transparent 60%),
+        radial-gradient(720px 380px at 100% 0%, rgba(49,130,206,0.08), transparent 55%);
+    }
+    .si-container { max-width: 1040px; margin: 0 auto; padding: calc(80px + 2.5rem) 1.5rem 5rem; }
+
+    .si-back {
+      font-size: 0.82rem;
+      color: var(--aap-text-muted);
+      text-decoration: none;
+      margin-bottom: 1.5rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      transition: color 0.15s;
+    }
     .si-back:hover { color: var(--aap-accent); }
+
+    .si-header { margin-bottom: 2.5rem; }
+    .si-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--aap-accent);
+      background: var(--aap-accent-light);
+      padding: 0.3rem 0.75rem;
+      border-radius: 999px;
+      margin-bottom: 1rem;
+    }
+    .si-eyebrow::before {
+      content: '';
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--aap-success);
+      box-shadow: 0 0 0 3px var(--aap-success-light);
+    }
+    .si-header h1 {
+      font-size: clamp(2rem, 4vw, 2.6rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.6rem;
+      line-height: 1.1;
+    }
+    .si-header p { color: var(--aap-text-muted); font-size: 1.02rem; max-width: 620px; line-height: 1.6; }
 
     /* Diagram */
     .si-diagram-wrap {
-      background: #fff;
+      background: linear-gradient(180deg, #fff, #fdfcfa);
       border: 1px solid var(--aap-border);
-      border-radius: 12px;
-      padding: 1.5rem;
-      margin-bottom: 2.5rem;
+      border-radius: 16px;
+      padding: 1.75rem;
+      margin-bottom: 2rem;
       overflow-x: auto;
+      box-shadow: 0 1px 2px rgba(26,20,22,0.04), 0 12px 32px -16px rgba(26,20,22,0.12);
     }
     .si-diagram-wrap svg { display: block; margin: 0 auto; min-width: 720px; }
 
-    /* Section */
-    .si-section { margin-bottom: 2.5rem; }
-    .si-section h2 {
-      font-size: 0.78rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
+    /* Callout note */
+    .si-note {
+      font-size: 0.9rem;
       color: var(--aap-text-muted);
-      margin-bottom: 0.9rem;
-      padding-bottom: 0.5rem;
-      border-bottom: 1px solid var(--aap-border);
+      background: var(--aap-bg-muted);
+      border-left: 3px solid var(--aap-accent);
+      border-radius: 0 10px 10px 0;
+      padding: 1rem 1.25rem;
+      line-height: 1.65;
+      margin-bottom: 2.5rem;
+    }
+    .si-note strong { color: var(--aap-text); }
+    .si-note code { font-size: 0.85em; }
+    .si-note--muted { border-left-color: var(--aap-border); margin-bottom: 0; margin-top: 3rem; }
+
+    /* Section */
+    .si-section { margin-bottom: 2.75rem; }
+    .si-section-head { display: flex; align-items: baseline; gap: 0.6rem; margin-bottom: 1.1rem; }
+    .si-section h2 {
+      font-size: 0.76rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--aap-text);
+    }
+    .si-section-count {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--aap-text-muted);
+      background: var(--aap-bg-muted);
+      padding: 0.1rem 0.5rem;
+      border-radius: 999px;
     }
     .si-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; }
+
     .si-card {
+      position: relative;
       background: #fff;
       border: 1px solid var(--aap-border);
-      border-radius: 10px;
-      padding: 1.1rem 1.25rem;
+      border-radius: 14px;
+      padding: 1.15rem 1.25rem 1.25rem;
+      transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease;
     }
-    .si-card-top { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; margin-bottom: 0.3rem; }
-    .si-card h3 { font-size: 0.95rem; font-weight: 600; margin: 0; }
-    .si-card p { font-size: 0.82rem; color: var(--aap-text-muted); line-height: 1.5; margin: 0.15rem 0 0; }
+    .si-card:hover {
+      transform: translateY(-2px);
+      border-color: color-mix(in srgb, var(--si-accent, var(--aap-accent)) 45%, var(--aap-border));
+      box-shadow: 0 10px 24px -14px color-mix(in srgb, var(--si-accent, var(--aap-accent)) 55%, transparent);
+    }
+    .si-card-top { display: flex; align-items: center; gap: 0.7rem; margin-bottom: 0.55rem; }
+    .si-icon {
+      width: 34px; height: 34px;
+      border-radius: 9px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: #fff;
+      background: var(--si-accent, var(--aap-accent));
+      flex-shrink: 0;
+      box-shadow: 0 3px 8px -2px color-mix(in srgb, var(--si-accent, var(--aap-accent)) 60%, transparent);
+    }
+    .si-card-titles { min-width: 0; flex: 1; }
+    .si-card h3 { font-size: 0.96rem; font-weight: 700; margin: 0; line-height: 1.25; }
     .si-tag {
-      font-size: 0.65rem;
+      font-size: 0.63rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.03em;
-      padding: 0.15rem 0.5rem;
-      border-radius: 999px;
-      white-space: nowrap;
-      flex-shrink: 0;
+      display: inline-block;
+      margin-top: 0.15rem;
     }
-    .si-tag--free { background: var(--aap-success-light); color: var(--aap-success); }
-    .si-tag--paid { background: var(--aap-accent-light); color: var(--aap-accent); }
-    .si-tag--deprecated { background: var(--aap-error-light); color: var(--aap-error); }
-
-    .si-note {
-      font-size: 0.82rem;
-      color: var(--aap-text-muted);
-      background: var(--aap-bg-muted);
-      border-radius: 8px;
-      padding: 0.85rem 1.1rem;
-      line-height: 1.55;
-      margin-bottom: 2.5rem;
-    }
-    .si-note code { font-size: 0.8em; }
+    .si-tag--free { color: var(--aap-success); }
+    .si-tag--paid { color: var(--aap-accent); }
+    .si-tag--dev { color: var(--aap-info); }
+    .si-card p { font-size: 0.84rem; color: var(--aap-text-muted); line-height: 1.55; margin: 0; }
 
     @media (max-width: 640px) {
       .si-diagram-wrap svg { min-width: 600px; }
     }
   </style>
 </head>
-<body>
+<body class="si-page">
   <span data-site-version style="display:none;">v260821.07 1:34p</span>
   <div id="siteHeader"></div>
 
   <div class="si-container">
     <a href="/intranet/" class="si-back">&larr; Intranet home</a>
+
     <div class="si-header">
+      <span class="si-eyebrow">Live services only</span>
       <h1>System Info</h1>
-      <p>The services actually running this deployment &mdash; real accounts with real credentials, not the full template's optional feature list.</p>
+      <p>What's actually running this deployment &mdash; real accounts with real credentials, cross-checked against the vault. Not the template's full feature list.</p>
     </div>
 
     <!-- Architecture diagram -->
     <div class="si-diagram-wrap">
-      <svg viewBox="0 0 900 480" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Architecture diagram: browser talks to Cloudflare Pages and Access, gated by Google OAuth, which routes to Supabase, which talks to Resend for email and OpenRouter for AI.">
+      <svg viewBox="0 0 900 480" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Architecture diagram: browser talks to Cloudflare Pages and Access, gated by Google OAuth, which routes to Supabase, which talks to Resend for email and OpenRouter for AI. GitHub hosts the source and drives the deploy.">
         <defs>
           <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
             <path d="M0,0 L8,4 L0,8 Z" fill="#7d6f74"/>
           </marker>
+          <linearGradient id="cfGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#fdf3e8"/>
+            <stop offset="100%" stop-color="#fbe9d5"/>
+          </linearGradient>
         </defs>
         <style>
           .box { fill: #fff; stroke: #e6e2d9; stroke-width: 1.5; rx: 10; }
-          .box-accent { fill: #fdf3e8; stroke: #d4883a; stroke-width: 1.5; rx: 10; }
-          .box-dark { fill: #2a1f23; stroke: #2a1f23; rx: 10; }
+          .box-accent { fill: url(#cfGrad); stroke: #d4883a; stroke-width: 1.5; rx: 12; }
+          .box-dark { fill: #201820; stroke: #201820; rx: 12; }
           .lbl { font-family: 'DM Sans', -apple-system, sans-serif; font-size: 13px; font-weight: 700; fill: #2a1f23; }
           .lbl-light { font-family: 'DM Sans', -apple-system, sans-serif; font-size: 13px; font-weight: 700; fill: #faf9f6; }
           .sub { font-family: 'DM Sans', -apple-system, sans-serif; font-size: 10.5px; fill: #7d6f74; }
           .sub-light { font-family: 'DM Sans', -apple-system, sans-serif; font-size: 10.5px; fill: #cfc6c8; }
           .conn { stroke: #cbbfa8; stroke-width: 1.5; fill: none; marker-end: url(#arrow); }
+          .conn-dash { stroke: #cbbfa8; stroke-width: 1.5; fill: none; stroke-dasharray: 4 3; marker-end: url(#arrow); }
         </style>
+
+        <!-- GitHub (source of truth, off to the side) -->
+        <rect x="20" y="20" width="150" height="56" class="box"/>
+        <text x="95" y="43" text-anchor="middle" class="lbl">GitHub</text>
+        <text x="95" y="58" text-anchor="middle" class="sub">Repo + Actions CI</text>
+        <line x1="170" y1="48" x2="230" y2="48" class="conn-dash"/>
+        <text x="200" y="40" text-anchor="middle" class="sub" font-style="italic">deploys</text>
 
         <!-- Browser -->
         <rect x="370" y="10" width="160" height="46" class="box"/>
@@ -143,62 +228,116 @@
         <!-- OpenRouter -->
         <rect x="600" y="370" width="220" height="60" class="box"/>
         <text x="710" y="392" text-anchor="middle" class="lbl">OpenRouter</text>
-        <text x="710" y="408" text-anchor="middle" class="sub">LLM gateway for AI-assisted features</text>
+        <text x="710" y="408" text-anchor="middle" class="sub">DeepSeek v4 Flash &amp; other models</text>
         <line x1="520" y1="310" x2="670" y2="370" class="conn"/>
       </svg>
     </div>
 
     <div class="si-note">
-      <strong>How it fits together:</strong> the browser calls <code>beartandmusic.pl</code> for the public site. Internal-only paths redirect to <code>in.beartandmusic.pl</code>, which Cloudflare Access gates behind Google sign-in &mdash; restricted to a single allowed account. Everything server-side goes through <strong>Supabase</strong>: it's the database, the auth provider, the file store, and the host for the edge functions. Those functions call out to <strong>Resend</strong> for email and <strong>OpenRouter</strong> for AI-assisted features.
+      <strong>How it fits together:</strong> <strong>GitHub</strong> holds the source and runs the deploy on every push to <code>main</code>. The browser calls <code>beartandmusic.pl</code> for the public site; internal-only paths redirect to <code>in.beartandmusic.pl</code>, which Cloudflare Access gates behind Google sign-in, restricted to a single allowed account. Everything server-side goes through <strong>Supabase</strong> &mdash; the database, auth provider, file store, and edge function host. Those functions call out to <strong>Resend</strong> for email and <strong>OpenRouter</strong> for AI-assisted features.
     </div>
 
     <div class="si-section">
-      <h2>Hosting &amp; Routing</h2>
+      <div class="si-section-head"><h2>Hosting &amp; Identity</h2><span class="si-section-count">4</span></div>
       <div class="si-grid">
-        <div class="si-card">
-          <div class="si-card-top"><h3>Cloudflare Pages</h3><span class="si-tag si-tag--free">Free</span></div>
+        <div class="si-card" style="--si-accent:#f48120">
+          <div class="si-card-top">
+            <div class="si-icon">CF</div>
+            <div class="si-card-titles"><h3>Cloudflare Pages</h3><span class="si-tag si-tag--free">Free</span></div>
+          </div>
           <p>Hosts this static site. Deploys automatically via GitHub Actions on every push to <code>main</code>.</p>
         </div>
-        <div class="si-card">
-          <div class="si-card-top"><h3>Cloudflare DNS</h3><span class="si-tag si-tag--free">Free</span></div>
+        <div class="si-card" style="--si-accent:#f48120">
+          <div class="si-card-top">
+            <div class="si-icon">CF</div>
+            <div class="si-card-titles"><h3>Cloudflare DNS</h3><span class="si-tag si-tag--free">Free</span></div>
+          </div>
           <p>DNS and SSL for <code>beartandmusic.pl</code> and <code>in.beartandmusic.pl</code>.</p>
         </div>
-        <div class="si-card">
-          <div class="si-card-top"><h3>Cloudflare Access</h3><span class="si-tag si-tag--free">Free</span></div>
+        <div class="si-card" style="--si-accent:#f48120">
+          <div class="si-card-top">
+            <div class="si-icon">CF</div>
+            <div class="si-card-titles"><h3>Cloudflare Access</h3><span class="si-tag si-tag--free">Free</span></div>
+          </div>
           <p>Gates <code>in.beartandmusic.pl</code> at the edge, before any page code runs.</p>
         </div>
-        <div class="si-card">
-          <div class="si-card-top"><h3>Google OAuth</h3><span class="si-tag si-tag--free">Free</span></div>
+        <div class="si-card" style="--si-accent:#4285F4">
+          <div class="si-card-top">
+            <div class="si-icon">G</div>
+            <div class="si-card-titles"><h3>Google OAuth</h3><span class="si-tag si-tag--free">Free</span></div>
+          </div>
           <p>Identity provider for Cloudflare Access &mdash; sign-in is restricted to <code>bart.kondrat@gmail.com</code>.</p>
         </div>
       </div>
     </div>
 
     <div class="si-section">
-      <h2>Backend</h2>
+      <div class="si-section-head"><h2>Source Control &amp; CI</h2><span class="si-section-count">1</span></div>
       <div class="si-grid">
-        <div class="si-card">
-          <div class="si-card-top"><h3>Supabase</h3><span class="si-tag si-tag--free">Free tier</span></div>
+        <div class="si-card" style="--si-accent:#24292f">
+          <div class="si-card-top">
+            <div class="si-icon">GH</div>
+            <div class="si-card-titles"><h3>GitHub</h3><span class="si-tag si-tag--free">Free</span></div>
+          </div>
+          <p>Hosts the repo. GitHub Actions builds Tailwind, bumps the version, and deploys to Cloudflare Pages on every push to <code>main</code>.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="si-section">
+      <div class="si-section-head"><h2>Backend</h2><span class="si-section-count">1</span></div>
+      <div class="si-grid">
+        <div class="si-card" style="--si-accent:#3ECF8E">
+          <div class="si-card-top">
+            <div class="si-icon">SB</div>
+            <div class="si-card-titles"><h3>Supabase</h3><span class="si-tag si-tag--free">Free tier</span></div>
+          </div>
           <p>Postgres database, authentication, file storage, and the edge functions this app calls. The backend for everything server-side.</p>
         </div>
       </div>
     </div>
 
     <div class="si-section">
-      <h2>Communications &amp; AI</h2>
+      <div class="si-section-head"><h2>Communications &amp; AI</h2><span class="si-section-count">2</span></div>
       <div class="si-grid">
-        <div class="si-card">
-          <div class="si-card-top"><h3>Resend</h3><span class="si-tag si-tag--free">Free tier</span></div>
+        <div class="si-card" style="--si-accent:#3182ce">
+          <div class="si-card-top">
+            <div class="si-icon">R</div>
+            <div class="si-card-titles"><h3>Resend</h3><span class="si-tag si-tag--free">Free tier</span></div>
+          </div>
           <p>Sends and receives system email.</p>
         </div>
-        <div class="si-card">
-          <div class="si-card-top"><h3>OpenRouter</h3><span class="si-tag si-tag--paid">Pay-as-you-go</span></div>
-          <p>Multi-model LLM gateway powering AI-assisted edge functions.</p>
+        <div class="si-card" style="--si-accent:#6b46c1">
+          <div class="si-card-top">
+            <div class="si-icon">OR</div>
+            <div class="si-card-titles"><h3>OpenRouter</h3><span class="si-tag si-tag--paid">Pay-as-you-go</span></div>
+          </div>
+          <p>Multi-model LLM gateway. Currently routes to <strong>DeepSeek v4 Flash</strong> for AI-assisted edge functions and code-generation delegation &mdash; not a separate service, just a model behind this gateway.</p>
         </div>
       </div>
     </div>
 
-    <div class="si-note">
+    <div class="si-section">
+      <div class="si-section-head"><h2>AI Coding Agents</h2><span class="si-section-count">2</span></div>
+      <div class="si-grid">
+        <div class="si-card" style="--si-accent:#d4883a">
+          <div class="si-card-top">
+            <div class="si-icon">CC</div>
+            <div class="si-card-titles"><h3>Claude Code</h3><span class="si-tag si-tag--dev">Dev tooling</span></div>
+          </div>
+          <p>Primary agent for building and maintaining this repo &mdash; reads <code>CLAUDE.md</code> for project conventions, runs migrations, and pushes deploys directly.</p>
+        </div>
+        <div class="si-card" style="--si-accent:#10a37f">
+          <div class="si-card-top">
+            <div class="si-icon">CX</div>
+            <div class="si-card-titles"><h3>Codex</h3><span class="si-tag si-tag--dev">Dev tooling</span></div>
+          </div>
+          <p>Secondary coding agent &mdash; reads <code>AGENTS.md</code> and delegates well-scoped code generation to DeepSeek v4 Flash via OpenRouter (<code>scripts/ask-deepseek.js</code>).</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="si-note si-note--muted">
       <strong>Not listed here:</strong> the repo still contains edge functions and code paths for Stripe, Square, PayPal, Telnyx, SignWell, Vapi, and various smart-home vendors (Tesla, Nest, LG ThinQ, Govee, Sonos, Anova, Glowforge). Those are leftover scaffolding from the <code>alpacapps-infra</code> template this project was cloned from &mdash; there are no accounts or credentials behind them, so they're not part of this deployment. See <code>systemdesign.md</code> for the update rule.
     </div>
 
