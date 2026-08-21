@@ -1,12 +1,12 @@
 {
-  "version": "v260821.07 1:34p",
-  "release": 7,
-  "sha": "f5e84a4",
-  "fullSha": "f5e84a4ff570db90b3149b61f3bd892cbd5c6917",
+  "version": "v260821.08 1:41p",
+  "release": 8,
+  "sha": "9a13535",
+  "fullSha": "9a1353552eea9e6392ec66fe3b358b2e41bc4411",
   "actor": "bartkondratai",
   "source": "cloudflare-pages-deploy",
   "model": "ci",
   "machine": "runnervm76f27",
-  "pushedAt": "2026-08-21T15:34:33+02:00",
-  "commits": [{"sha":"f5e84a4","message":"Trim /systeminfo to services with real accounts and credentials","author":"Bartosz Kondrat"}]
+  "pushedAt": "2026-08-21T15:41:12+02:00",
+  "commits": [{"sha":"9a13535","message":"Redesign /systeminfo, add GitHub + AI coding agents","author":"Bartosz Kondrat"}]
 }
