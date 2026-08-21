@@ -1,12 +1,12 @@
 {
-  "version": "v260821.04 1:00p",
-  "release": 4,
-  "sha": "e13a3f3",
-  "fullSha": "e13a3f3037a7ab580d48c44788c028896255b3c9",
+  "version": "v260821.05 1:27p",
+  "release": 5,
+  "sha": "1c37790",
+  "fullSha": "1c377907506b75f866dafc0e02d44b0d3f4357ff",
   "actor": "bartkondratai",
   "source": "cloudflare-pages-deploy",
   "model": "ci",
   "machine": "runnervm76f27",
-  "pushedAt": "2026-08-21T15:00:05+02:00",
-  "commits": [{"sha":"e13a3f3","message":"Add /systeminfo page and public/intranet domain split","author":"Bartosz Kondrat"}]
+  "pushedAt": "2026-08-21T15:27:08+02:00",
+  "commits": [{"sha":"1c37790","message":"Rewrite intranet root instead of redirecting","author":"Bartosz Kondrat"}]
 }
