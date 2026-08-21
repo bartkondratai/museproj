@@ -18,6 +18,7 @@
   <meta property="og:description" content="Bart (Bartosz) Kondrat is a musician and music teacher in Warsaw, Poland, and founder of Mokotown Music Academy in Stary Mokotów.">
   <meta property="og:site_name" content="Austin YOUR_PROPERTY_NAME">
   <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="pl_PL">
 
   <!-- JSON-LD: Person -->
   <script type="application/ld+json">
@@ -37,6 +38,40 @@
   <link rel="icon" type="image/png" href="/favicon.png">
 
   <style>
+    .lang-switch {
+      position: fixed;
+      top: 14px;
+      right: 16px;
+      z-index: 1002;
+      display: flex;
+      gap: 2px;
+      background: rgba(255,255,255,0.92);
+      border-radius: 999px;
+      padding: 4px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+    }
+    .lang-switch__btn {
+      border: none;
+      background: transparent;
+      padding: 0.35rem 0.8rem;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      cursor: pointer;
+      color: #666;
+      font-family: inherit;
+      transition: background 0.15s, color 0.15s;
+    }
+    .lang-switch__btn:hover { color: #333; }
+    .lang-switch__btn.is-active {
+      background: #d4883a;
+      color: #fff;
+    }
+    @media (max-width: 640px) {
+      .lang-switch { top: 10px; right: 10px; }
+    }
+
     .bart-note {
       margin-top: 3rem;
       padding: 1rem 1.25rem;
@@ -71,138 +106,273 @@
       font-size: 0.85rem;
       font-weight: 500;
     }
+    [data-lang-hero][hidden] { display: none; }
   </style>
 </head>
 <body>
   <span data-site-version style="display:none;">v260821.07 1:34p</span>
   <div id="siteHeader"></div>
 
+  <!-- Language Switch -->
+  <div class="lang-switch" role="group" aria-label="Language / Język">
+    <button type="button" class="lang-switch__btn" data-lang-btn="en">EN</button>
+    <button type="button" class="lang-switch__btn" data-lang-btn="pl">PL</button>
+  </div>
+
   <!-- Hero Section -->
   <section class="aap-hero aap-hero--short" style="background-image: url('YOUR_SUPABASE_URL/storage/v1/object/public/housephotos/site/hero-property.jpeg')">
     <div class="aap-hero__content">
       <h1 class="aap-hero__title">Bart Kondrat</h1>
-      <p class="aap-hero__subtitle">Musician &amp; music teacher, Warsaw, Poland — founder of Mokotown Music Academy</p>
+      <p class="aap-hero__subtitle" data-lang-hero="en">Musician &amp; music teacher, Warsaw, Poland — founder of Mokotown Music Academy</p>
+      <p class="aap-hero__subtitle" data-lang-hero="pl" hidden>Muzyk i nauczyciel muzyki, Warszawa, Polska — założyciel Mokotown Music Academy</p>
     </div>
   </section>
 
   <!-- Content -->
   <div class="aap-content">
 
-    <p>
-      Bart — Bartosz Kondrat — is a Warsaw-based musician and music teacher who has spent close to
-      three decades on stage and in the classroom, from a folk-world touring band to eleven years
-      performing in Ireland, and now teaching guitar, bass, ukulele and piano at the school he
-      co-founded in the Stary Mokotów neighborhood of Warsaw.
-    </p>
+    <!-- ================= ENGLISH ================= -->
+    <div data-lang-content="en">
 
-    <div class="bart-tags">
-      <span class="bart-tag">Guitar</span>
-      <span class="bart-tag">Bass Guitar</span>
-      <span class="bart-tag">Ukulele</span>
-      <span class="bart-tag">Piano</span>
-      <span class="bart-tag">Songwriting</span>
-      <span class="bart-tag">Music Production</span>
+      <p>
+        Bart — Bartosz Kondrat — is a Warsaw-based musician and music teacher who has spent close to
+        three decades on stage and in the classroom, from a folk-world touring band to eleven years
+        performing in Ireland, and now teaching guitar, bass, ukulele and piano at the school he
+        co-founded in the Stary Mokotów neighborhood of Warsaw.
+      </p>
+
+      <div class="bart-tags">
+        <span class="bart-tag">Guitar</span>
+        <span class="bart-tag">Bass Guitar</span>
+        <span class="bart-tag">Ukulele</span>
+        <span class="bart-tag">Piano</span>
+        <span class="bart-tag">Songwriting</span>
+        <span class="bart-tag">Music Production</span>
+      </div>
+
+      <hr style="margin: 3rem 0;">
+
+      <!-- Career Timeline -->
+      <section>
+        <h2>Career</h2>
+        <div class="bart-timeline">
+
+          <div class="bart-timeline__item">
+            <div class="bart-timeline__years">1997 – 2007</div>
+            <h3 class="bart-timeline__title">Shannon (folk-world ensemble)</h3>
+            <p style="margin-bottom: 0; color: #666;">
+              Ten years composing and arranging for the folk-world group Shannon. Recorded five albums,
+              including the score for the Polish comedy <em>1409. Afera na zamku Bartenstein</em>, and
+              performed over 1,000 concerts across Europe and Asia.
+            </p>
+          </div>
+
+          <div class="bart-timeline__item">
+            <div class="bart-timeline__years">2007 – 2018</div>
+            <h3 class="bart-timeline__title">Eleven years in Ireland</h3>
+            <p style="margin-bottom: 0; color: #666;">
+              Performed at venues including Cork Opera House, Everyman Palace Theatre, and Whelan's Pub.
+              Co-founded the Irish trio <strong>Mahoo</strong>, winners of TG4's talent show
+              <em>Busker Abú</em>.
+            </p>
+          </div>
+
+          <div class="bart-timeline__item">
+            <div class="bart-timeline__years">2018 – 2020</div>
+            <h3 class="bart-timeline__title">Thames British School &amp; Eduventura, Warsaw</h3>
+            <p style="margin-bottom: 0; color: #666;">
+              Returned to Warsaw to teach at Thames British School, then served as Vice-Director at the
+              Eduventura school complex.
+            </p>
+          </div>
+
+          <div class="bart-timeline__item">
+            <div class="bart-timeline__years">2020 – Present</div>
+            <h3 class="bart-timeline__title">Founder, Mokotown Music Academy</h3>
+            <p style="margin-bottom: 0; color: #666;">
+              Co-founded Mokotown Music Academy with Maryla Wiśniewska — a private music school in
+              Warsaw's Stary Mokotów district offering individual lessons in guitar, bass, ukulele,
+              piano, singing, songwriting and music production, in both Polish and English. Also
+              teaches at Meridian International School.
+            </p>
+          </div>
+
+        </div>
+      </section>
+
+      <hr style="margin: 3rem 0;">
+
+      <!-- Education -->
+      <section>
+        <h2>Education</h2>
+        <p>
+          Master's degree in Music Arts from the Faculty of Arts, University of Warmia and Mazury.
+        </p>
+      </section>
+
+      <hr style="margin: 3rem 0;">
+
+      <!-- Teaching Philosophy -->
+      <section>
+        <h2>Teaching Philosophy</h2>
+        <blockquote class="bart-quote">
+          "In my work, building relationships with students matters most. I nurture their musical
+          sensitivity and instrument skills, seeking to awaken their passion for music. I create
+          comfortable classroom atmospheres where all participate regardless of ability level.
+          Knowledge sharing takes priority over assessment."
+        </blockquote>
+        <p>
+          Mokotown Music Academy places particular emphasis on inclusive teaching, working with
+          students on the autism spectrum, with Asperger's syndrome and ADHD, and those who have
+          experienced trauma — including helping one autistic student write, record and release her
+          debut single.
+        </p>
+      </section>
+
+      <hr style="margin: 3rem 0;">
+
+      <!-- Links -->
+      <section>
+        <h2>Find Bart</h2>
+        <ul>
+          <li>Mokotown Music Academy: <a href="https://www.mokotownmusic.pl/" target="_blank" rel="noopener">mokotownmusic.pl</a></li>
+          <li>LinkedIn: <a href="https://pl.linkedin.com/in/bartosz-kondrat-76688829" target="_blank" rel="noopener">pl.linkedin.com/in/bartosz-kondrat-76688829</a></li>
+          <li>Facebook: <a href="https://www.facebook.com/mokotownmusic/" target="_blank" rel="noopener">facebook.com/mokotownmusic</a></li>
+          <li>Instagram: <a href="https://www.instagram.com/mokotownmusic/" target="_blank" rel="noopener">@mokotownmusic</a></li>
+        </ul>
+      </section>
+
+      <p class="bart-note">
+        This page was compiled from publicly available search results — primarily
+        <a href="https://www.mokotownmusic.pl/instruktorzy/" target="_blank" rel="noopener">Mokotown Music Academy's instructor page</a>,
+        <a href="https://pl.linkedin.com/in/bartosz-kondrat-76688829" target="_blank" rel="noopener">LinkedIn</a>,
+        and <a href="https://fsmm.pl/partner/bartosz-kondrat/" target="_blank" rel="noopener">Fundacja Młodzi-Młodym</a>.
+        If anything here is out of date or inaccurate, let us know.
+      </p>
+
     </div>
 
-    <hr style="margin: 3rem 0;">
+    <!-- ================= POLISH ================= -->
+    <div data-lang-content="pl" hidden>
 
-    <!-- Career Timeline -->
-    <section>
-      <h2>Career</h2>
-      <div class="bart-timeline">
+      <p>
+        Bart — Bartosz Kondrat — to warszawski muzyk i nauczyciel muzyki, który spędził blisko trzy
+        dekady na scenie i w klasie — od koncertującego zespołu folkowo-światowego po jedenaście lat
+        występów w Irlandii — a obecnie uczy gry na gitarze, basie, ukulele i pianinie w szkole, którą
+        współzałożył na warszawskim Starym Mokotowie.
+      </p>
 
-        <div class="bart-timeline__item">
-          <div class="bart-timeline__years">1997 – 2007</div>
-          <h3 class="bart-timeline__title">Shannon (folk-world ensemble)</h3>
-          <p style="margin-bottom: 0; color: #666;">
-            Ten years composing and arranging for the folk-world group Shannon. Recorded five albums,
-            including the score for the Polish comedy <em>1409. Afera na zamku Bartenstein</em>, and
-            performed over 1,000 concerts across Europe and Asia.
-          </p>
-        </div>
-
-        <div class="bart-timeline__item">
-          <div class="bart-timeline__years">2007 – 2018</div>
-          <h3 class="bart-timeline__title">Eleven years in Ireland</h3>
-          <p style="margin-bottom: 0; color: #666;">
-            Performed at venues including Cork Opera House, Everyman Palace Theatre, and Whelan's Pub.
-            Co-founded the Irish trio <strong>Mahoo</strong>, winners of TG4's talent show
-            <em>Busker Abú</em>.
-          </p>
-        </div>
-
-        <div class="bart-timeline__item">
-          <div class="bart-timeline__years">2018 – 2020</div>
-          <h3 class="bart-timeline__title">Thames British School &amp; Eduventura, Warsaw</h3>
-          <p style="margin-bottom: 0; color: #666;">
-            Returned to Warsaw to teach at Thames British School, then served as Vice-Director at the
-            Eduventura school complex.
-          </p>
-        </div>
-
-        <div class="bart-timeline__item">
-          <div class="bart-timeline__years">2020 – Present</div>
-          <h3 class="bart-timeline__title">Founder, Mokotown Music Academy</h3>
-          <p style="margin-bottom: 0; color: #666;">
-            Co-founded Mokotown Music Academy with Maryla Wiśniewska — a private music school in
-            Warsaw's Stary Mokotów district offering individual lessons in guitar, bass, ukulele,
-            piano, singing, songwriting and music production, in both Polish and English. Also
-            teaches at Meridian International School.
-          </p>
-        </div>
-
+      <div class="bart-tags">
+        <span class="bart-tag">Gitara</span>
+        <span class="bart-tag">Gitara basowa</span>
+        <span class="bart-tag">Ukulele</span>
+        <span class="bart-tag">Pianino</span>
+        <span class="bart-tag">Pisanie piosenek</span>
+        <span class="bart-tag">Produkcja muzyczna</span>
       </div>
-    </section>
 
-    <hr style="margin: 3rem 0;">
+      <hr style="margin: 3rem 0;">
 
-    <!-- Education -->
-    <section>
-      <h2>Education</h2>
-      <p>
-        Master's degree in Music Arts from the Faculty of Arts, University of Warmia and Mazury.
+      <!-- Kariera -->
+      <section>
+        <h2>Kariera</h2>
+        <div class="bart-timeline">
+
+          <div class="bart-timeline__item">
+            <div class="bart-timeline__years">1997 – 2007</div>
+            <h3 class="bart-timeline__title">Shannon (zespół folkowo-światowy)</h3>
+            <p style="margin-bottom: 0; color: #666;">
+              Dziesięć lat komponowania i aranżacji dla folkowo-światowego zespołu Shannon. Nagrał pięć
+              albumów, w tym ścieżkę dźwiękową do polskiej komedii <em>1409. Afera na zamku Bartenstein</em>,
+              oraz zagrał ponad 1000 koncertów w Europie i Azji.
+            </p>
+          </div>
+
+          <div class="bart-timeline__item">
+            <div class="bart-timeline__years">2007 – 2018</div>
+            <h3 class="bart-timeline__title">Jedenaście lat w Irlandii</h3>
+            <p style="margin-bottom: 0; color: #666;">
+              Występował w miejscach takich jak Cork Opera House, Everyman Palace Theatre i Whelan's Pub.
+              Współzałożył irlandzkie trio <strong>Mahoo</strong>, zwycięzców programu talent show
+              <em>Busker Abú</em> stacji TG4.
+            </p>
+          </div>
+
+          <div class="bart-timeline__item">
+            <div class="bart-timeline__years">2018 – 2020</div>
+            <h3 class="bart-timeline__title">Thames British School i Eduventura, Warszawa</h3>
+            <p style="margin-bottom: 0; color: #666;">
+              Wrócił do Warszawy, by uczyć w Thames British School, a następnie objął stanowisko
+              wicedyrektora w zespole szkół Eduventura.
+            </p>
+          </div>
+
+          <div class="bart-timeline__item">
+            <div class="bart-timeline__years">2020 – obecnie</div>
+            <h3 class="bart-timeline__title">Założyciel Mokotown Music Academy</h3>
+            <p style="margin-bottom: 0; color: #666;">
+              Współzałożył Mokotown Music Academy razem z Marylą Wiśniewską — prywatną szkołę muzyczną
+              na warszawskim Starym Mokotowie, oferującą indywidualne lekcje gitary, basu, ukulele,
+              pianina, śpiewu, pisania piosenek i produkcji muzycznej, po polsku i angielsku. Uczy
+              również w Meridian International School.
+            </p>
+          </div>
+
+        </div>
+      </section>
+
+      <hr style="margin: 3rem 0;">
+
+      <!-- Wykształcenie -->
+      <section>
+        <h2>Wykształcenie</h2>
+        <p>
+          Magister sztuki muzycznej, Wydział Sztuki Uniwersytetu Warmińsko-Mazurskiego.
+        </p>
+      </section>
+
+      <hr style="margin: 3rem 0;">
+
+      <!-- Filozofia nauczania -->
+      <section>
+        <h2>Filozofia nauczania</h2>
+        <blockquote class="bart-quote">
+          „W mojej pracy najważniejsze jest budowanie relacji z uczniami. Rozwijam ich wrażliwość
+          muzyczną i umiejętności instrumentalne, starając się rozbudzić w nich pasję do muzyki.
+          Tworzę komfortową atmosferę na zajęciach, w której uczestniczą wszyscy, niezależnie od
+          poziomu umiejętności. Dzielenie się wiedzą jest ważniejsze niż ocenianie."
+        </blockquote>
+        <p>
+          Mokotown Music Academy kładzie szczególny nacisk na nauczanie włączające, pracując z uczniami
+          ze spektrum autyzmu, z zespołem Aspergera, ADHD oraz osobami, które doświadczyły traumy —
+          w tym pomagając jednej uczennicy ze spektrum autyzmu napisać, nagrać i wydać debiutancki
+          singiel.
+        </p>
+      </section>
+
+      <hr style="margin: 3rem 0;">
+
+      <!-- Linki -->
+      <section>
+        <h2>Znajdź Barta</h2>
+        <ul>
+          <li>Mokotown Music Academy: <a href="https://www.mokotownmusic.pl/" target="_blank" rel="noopener">mokotownmusic.pl</a></li>
+          <li>LinkedIn: <a href="https://pl.linkedin.com/in/bartosz-kondrat-76688829" target="_blank" rel="noopener">pl.linkedin.com/in/bartosz-kondrat-76688829</a></li>
+          <li>Facebook: <a href="https://www.facebook.com/mokotownmusic/" target="_blank" rel="noopener">facebook.com/mokotownmusic</a></li>
+          <li>Instagram: <a href="https://www.instagram.com/mokotownmusic/" target="_blank" rel="noopener">@mokotownmusic</a></li>
+        </ul>
+      </section>
+
+      <p class="bart-note">
+        Ta strona została przygotowana na podstawie publicznie dostępnych wyników wyszukiwania —
+        przede wszystkim
+        <a href="https://www.mokotownmusic.pl/instruktorzy/" target="_blank" rel="noopener">strony instruktorów Mokotown Music Academy</a>,
+        <a href="https://pl.linkedin.com/in/bartosz-kondrat-76688829" target="_blank" rel="noopener">LinkedIn</a>
+        oraz <a href="https://fsmm.pl/partner/bartosz-kondrat/" target="_blank" rel="noopener">Fundacji Młodzi-Młodym</a>.
+        Jeśli coś tu jest nieaktualne lub niedokładne, daj nam znać.
       </p>
-    </section>
 
-    <hr style="margin: 3rem 0;">
-
-    <!-- Teaching Philosophy -->
-    <section>
-      <h2>Teaching Philosophy</h2>
-      <blockquote class="bart-quote">
-        "In my work, building relationships with students matters most. I nurture their musical
-        sensitivity and instrument skills, seeking to awaken their passion for music. I create
-        comfortable classroom atmospheres where all participate regardless of ability level.
-        Knowledge sharing takes priority over assessment."
-      </blockquote>
-      <p>
-        Mokotown Music Academy places particular emphasis on inclusive teaching, working with
-        students on the autism spectrum, with Asperger's syndrome and ADHD, and those who have
-        experienced trauma — including helping one autistic student write, record and release her
-        debut single.
-      </p>
-    </section>
-
-    <hr style="margin: 3rem 0;">
-
-    <!-- Links -->
-    <section>
-      <h2>Find Bart</h2>
-      <ul>
-        <li>Mokotown Music Academy: <a href="https://www.mokotownmusic.pl/" target="_blank" rel="noopener">mokotownmusic.pl</a></li>
-        <li>LinkedIn: <a href="https://pl.linkedin.com/in/bartosz-kondrat-76688829" target="_blank" rel="noopener">pl.linkedin.com/in/bartosz-kondrat-76688829</a></li>
-        <li>Facebook: <a href="https://www.facebook.com/mokotownmusic/" target="_blank" rel="noopener">facebook.com/mokotownmusic</a></li>
-        <li>Instagram: <a href="https://www.instagram.com/mokotownmusic/" target="_blank" rel="noopener">@mokotownmusic</a></li>
-      </ul>
-    </section>
-
-    <p class="bart-note">
-      This page was compiled from publicly available search results — primarily
-      <a href="https://www.mokotownmusic.pl/instruktorzy/" target="_blank" rel="noopener">Mokotown Music Academy's instructor page</a>,
-      <a href="https://pl.linkedin.com/in/bartosz-kondrat-76688829" target="_blank" rel="noopener">LinkedIn</a>,
-      and <a href="https://fsmm.pl/partner/bartosz-kondrat/" target="_blank" rel="noopener">Fundacja Młodzi-Młodym</a>.
-      If anything here is out of date or inaccurate, let us know.
-    </p>
+    </div>
 
   </div>
 
@@ -242,6 +412,56 @@
     import { initPublicPage } from '../shared/public-shell.js';
 
     initPublicPage({ transparent: true, light: true });
+  </script>
+
+  <script>
+    (function () {
+      var STORAGE_KEY = 'bart-lang';
+      var SUPPORTED = ['en', 'pl'];
+      var titles = {
+        en: 'Bart Kondrat — Musician & Music Teacher, Warsaw',
+        pl: 'Bart Kondrat — Muzyk i Nauczyciel Muzyki, Warszawa'
+      };
+      var descriptions = {
+        en: "Bart (Bartosz) Kondrat is a musician and music teacher in Warsaw, Poland, and founder of Mokotown Music Academy in Stary Mokotów.",
+        pl: "Bart (Bartosz) Kondrat to muzyk i nauczyciel muzyki w Warszawie, założyciel Mokotown Music Academy na Starym Mokotowie."
+      };
+
+      function detectDefault() {
+        var stored = localStorage.getItem(STORAGE_KEY);
+        if (SUPPORTED.indexOf(stored) !== -1) return stored;
+        var browserLang = (navigator.language || 'en').toLowerCase();
+        return browserLang.indexOf('pl') === 0 ? 'pl' : 'en';
+      }
+
+      function applyLang(lang) {
+        document.documentElement.lang = lang;
+
+        document.querySelectorAll('[data-lang-content]').forEach(function (el) {
+          el.hidden = el.getAttribute('data-lang-content') !== lang;
+        });
+        document.querySelectorAll('[data-lang-hero]').forEach(function (el) {
+          el.hidden = el.getAttribute('data-lang-hero') !== lang;
+        });
+        document.querySelectorAll('[data-lang-btn]').forEach(function (btn) {
+          btn.classList.toggle('is-active', btn.getAttribute('data-lang-btn') === lang);
+        });
+
+        document.title = titles[lang];
+        var metaDesc = document.querySelector('meta[name="description"]');
+        if (metaDesc) metaDesc.setAttribute('content', descriptions[lang]);
+
+        localStorage.setItem(STORAGE_KEY, lang);
+      }
+
+      document.querySelectorAll('[data-lang-btn]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          applyLang(btn.getAttribute('data-lang-btn'));
+        });
+      });
+
+      applyLang(detectDefault());
+    })();
   </script>
 </body>
 </html>
