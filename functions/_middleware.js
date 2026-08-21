@@ -27,10 +27,11 @@ export async function onRequest(context) {
   const isInternalHost = url.hostname === INTERNAL_HOST;
   const internalPath = isInternalPath(url.pathname);
 
-  // in.beartandmusic.pl/ -> intranet home
+  // in.beartandmusic.pl/ -> intranet home, served in place (no URL change)
   if (isInternalHost && url.pathname === '/') {
-    url.pathname = '/intranet/';
-    return Response.redirect(url.toString(), 302);
+    const rewritten = new URL(request.url);
+    rewritten.pathname = '/intranet/';
+    return next(new Request(rewritten, request));
   }
 
   // Internal pages requested on the public host -> send to the intranet subdomain
