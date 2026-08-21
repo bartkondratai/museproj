@@ -1,12 +1,12 @@
 {
-  "version": "v260821.02 12:30p",
-  "release": 2,
-  "sha": "8f5869d",
-  "fullSha": "8f5869dbc162b906ba90ae2ecf340a93f0923cd6",
+  "version": "v260821.03 12:31p",
+  "release": 3,
+  "sha": "9aaba5b",
+  "fullSha": "9aaba5bc38da5ea21448432f7e84f9cbc0880c22",
   "actor": "bartkondratai",
   "source": "cloudflare-pages-deploy",
   "model": "ci",
   "machine": "runnervm76f27",
-  "pushedAt": "2026-08-21T14:30:09+02:00",
-  "commits": [{"sha":"8f5869d","message":"Add /bart page with bio compiled from public search results","author":"Bart Kondrat"}]
+  "pushedAt": "2026-08-21T14:31:11+02:00",
+  "commits": [{"sha":"9aaba5b","message":"Add /songs/landslide/ fingerpicking guide page","author":"Bartosz Kondrat"}]
 }
