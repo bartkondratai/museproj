@@ -1,12 +1,12 @@
 {
-  "version": "v260505.01 8:26p",
+  "version": "v260821.01 8:00a",
   "release": 1,
-  "sha": "e2bf42b",
-  "fullSha": "e2bf42b2b63c0e6813cae9a04da5fe6a6257b366",
-  "actor": "rsonnad",
+  "sha": "1021347",
+  "fullSha": "102134774a24f00b7682e9baf0d110eab66d4e97",
+  "actor": "bartkondratai",
   "source": "cloudflare-pages-deploy",
   "model": "ci",
-  "machine": "runnervmeorf1",
-  "pushedAt": "2026-05-05T15:25:54-05:00",
-  "commits": [{"sha":"e2bf42b","message":"chore: relicense from AGPL-3.0 to MIT","author":"Rahul"}]
+  "machine": "runnervm76f27",
+  "pushedAt": "2026-08-21T10:00:06+02:00",
+  "commits": []
 }
