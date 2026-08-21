@@ -1,0 +1,12 @@
+{
+  "version": "v260505.01 8:26p",
+  "release": 1,
+  "sha": "e2bf42b",
+  "fullSha": "e2bf42b2b63c0e6813cae9a04da5fe6a6257b366",
+  "actor": "rsonnad",
+  "source": "cloudflare-pages-deploy",
+  "model": "ci",
+  "machine": "runnervmeorf1",
+  "pushedAt": "2026-05-05T15:25:54-05:00",
+  "commits": [{"sha":"e2bf42b","message":"chore: relicense from AGPL-3.0 to MIT","author":"Rahul"}]
+}
