@@ -1,12 +1,12 @@
 {
-  "version": "v260821.05 1:27p",
-  "release": 5,
-  "sha": "1c37790",
-  "fullSha": "1c377907506b75f866dafc0e02d44b0d3f4357ff",
+  "version": "v260821.06 1:29p",
+  "release": 6,
+  "sha": "a695e99",
+  "fullSha": "a695e9947b0706528726d214498554e0be018a5e",
   "actor": "bartkondratai",
   "source": "cloudflare-pages-deploy",
   "model": "ci",
   "machine": "runnervm76f27",
-  "pushedAt": "2026-08-21T15:27:08+02:00",
-  "commits": [{"sha":"1c37790","message":"Rewrite intranet root instead of redirecting","author":"Bartosz Kondrat"}]
+  "pushedAt": "2026-08-21T15:29:30+02:00",
+  "commits": [{"sha":"a695e99","message":"Trigger deploy now that Cloudflare Pages credentials are configured","author":"Bartosz Kondrat"}]
 }
