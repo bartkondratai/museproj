@@ -1,12 +1,12 @@
 {
-  "version": "v260821.03 12:31p",
-  "release": 3,
-  "sha": "9aaba5b",
-  "fullSha": "9aaba5bc38da5ea21448432f7e84f9cbc0880c22",
+  "version": "v260821.04 1:00p",
+  "release": 4,
+  "sha": "e13a3f3",
+  "fullSha": "e13a3f3037a7ab580d48c44788c028896255b3c9",
   "actor": "bartkondratai",
   "source": "cloudflare-pages-deploy",
   "model": "ci",
   "machine": "runnervm76f27",
-  "pushedAt": "2026-08-21T14:31:11+02:00",
-  "commits": [{"sha":"9aaba5b","message":"Add /songs/landslide/ fingerpicking guide page","author":"Bartosz Kondrat"}]
+  "pushedAt": "2026-08-21T15:00:05+02:00",
+  "commits": [{"sha":"e13a3f3","message":"Add /systeminfo page and public/intranet domain split","author":"Bartosz Kondrat"}]
 }
