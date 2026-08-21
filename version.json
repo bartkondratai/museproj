@@ -1,12 +1,12 @@
 {
-  "version": "v260821.01 8:00a",
-  "release": 1,
-  "sha": "1021347",
-  "fullSha": "102134774a24f00b7682e9baf0d110eab66d4e97",
+  "version": "v260821.02 12:30p",
+  "release": 2,
+  "sha": "8f5869d",
+  "fullSha": "8f5869dbc162b906ba90ae2ecf340a93f0923cd6",
   "actor": "bartkondratai",
   "source": "cloudflare-pages-deploy",
   "model": "ci",
   "machine": "runnervm76f27",
-  "pushedAt": "2026-08-21T10:00:06+02:00",
-  "commits": []
+  "pushedAt": "2026-08-21T14:30:09+02:00",
+  "commits": [{"sha":"8f5869d","message":"Add /bart page with bio compiled from public search results","author":"Bart Kondrat"}]
 }
