@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="../favicon.png">
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <title>Intranet — BeArt&amp;Music</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="stylesheet" href="/styles/site.css">
+  <link rel="stylesheet" href="/styles/tailwind.out.css">
+  <style>
+    .in-container { max-width: 900px; margin: 0 auto; padding: calc(80px + 2rem) 1.5rem 4rem; }
+    .in-header { margin-bottom: 2rem; }
+    .in-header h1 { font-size: 1.9rem; font-weight: 700; margin-bottom: 0.35rem; }
+    .in-header p { color: var(--aap-text-muted); font-size: 0.95rem; }
+    .in-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.25rem; }
+    .in-card {
+      display: block;
+      background: #fff;
+      border: 1px solid var(--aap-border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      text-decoration: none;
+      color: inherit;
+      transition: box-shadow 0.15s, border-color 0.15s, transform 0.15s;
+    }
+    .in-card:hover { border-color: var(--aap-accent); box-shadow: 0 2px 12px rgba(0,0,0,0.06); transform: translateY(-1px); }
+    .in-card h2 { font-size: 1.05rem; font-weight: 600; margin-bottom: 0.4rem; color: var(--aap-text); }
+    .in-card p { font-size: 0.85rem; color: var(--aap-text-muted); line-height: 1.5; margin: 0; }
+    .in-badge {
+      display: inline-block;
+      font-size: 0.68rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--aap-accent);
+      background: var(--aap-accent-light);
+      padding: 0.15rem 0.55rem;
+      border-radius: 999px;
+      margin-top: 0.75rem;
+    }
+  </style>
+</head>
+<body>
+  <span data-site-version style="display:none;">v260821.02 12:30p</span>
+  <div id="siteHeader"></div>
+
+  <div class="in-container">
+    <div class="in-header">
+      <h1>BeArt&amp;Music Intranet</h1>
+      <p>Internal tools — staff and residents only. Restricted by Cloudflare Access.</p>
+    </div>
+
+    <div class="in-grid">
+      <a href="/residents/" class="in-card">
+        <h2>Residents Portal</h2>
+        <p>Smart home controls, cameras, laundry, climate, and community info for residents.</p>
+      </a>
+
+      <a href="/associates/" class="in-card">
+        <h2>Associates</h2>
+        <p>Clock in/out, timesheets, work photos, and payment preferences.</p>
+      </a>
+
+      <a href="/spaces/admin/manage.html" class="in-card">
+        <h2>Admin Dashboard</h2>
+        <p>Spaces, rentals, events, accounting, media, and system settings.</p>
+      </a>
+
+      <a href="/directory/" class="in-card">
+        <h2>Directory</h2>
+        <p>Look up residents, associates, and contacts.</p>
+      </a>
+
+      <a href="/clauded/" class="in-card">
+        <h2>Claude Dev</h2>
+        <p>Session history and configuration reference for Claude Code.</p>
+      </a>
+
+      <a href="/systeminfo/" class="in-card">
+        <h2>System Info</h2>
+        <p>What this deployment runs on — every service and how they connect.</p>
+        <span class="in-badge">New</span>
+      </a>
+    </div>
+  </div>
+
+  <script src="/vendor/supabase-js-2.39.3.min.js"></script>
+  <script type="module" src="/shared/version-info.js"></script>
+  <script type="module">
+    import { initPublicPage } from '/shared/public-shell.js';
+    initPublicPage({ transparent: false, light: true });
+  </script>
+</body>
+</html>

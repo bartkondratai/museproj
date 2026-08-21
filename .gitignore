@@ -15,6 +15,9 @@ alpacapps/
 # Root node_modules (Tailwind CSS build tools)
 node_modules/
 
+# Wrangler local dev cache
+.wrangler/
+
 # OS files
 .DS_Store
 

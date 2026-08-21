@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="../favicon.png">
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <title>System Info — BeArt&amp;Music</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="stylesheet" href="/styles/site.css">
+  <link rel="stylesheet" href="/styles/tailwind.out.css">
+  <style>
+    .si-container { max-width: 1000px; margin: 0 auto; padding: calc(80px + 2rem) 1.5rem 4rem; }
+    .si-header { margin-bottom: 2rem; }
+    .si-header h1 { font-size: 1.9rem; font-weight: 700; margin-bottom: 0.35rem; }
+    .si-header p { color: var(--aap-text-muted); font-size: 0.95rem; max-width: 640px; }
+    .si-back { font-size: 0.85rem; color: var(--aap-text-muted); text-decoration: none; margin-bottom: 0.75rem; display: inline-block; }
+    .si-back:hover { color: var(--aap-accent); }
+
+    /* Diagram */
+    .si-diagram-wrap {
+      background: #fff;
+      border: 1px solid var(--aap-border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 2.5rem;
+      overflow-x: auto;
+    }
+    .si-diagram-wrap svg { display: block; margin: 0 auto; min-width: 720px; }
+
+    /* Section */
+    .si-section { margin-bottom: 2.5rem; }
+    .si-section h2 {
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--aap-text-muted);
+      margin-bottom: 0.9rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--aap-border);
+    }
+    .si-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; }
+    .si-card {
+      background: #fff;
+      border: 1px solid var(--aap-border);
+      border-radius: 10px;
+      padding: 1.1rem 1.25rem;
+    }
+    .si-card-top { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; margin-bottom: 0.3rem; }
+    .si-card h3 { font-size: 0.95rem; font-weight: 600; margin: 0; }
+    .si-card p { font-size: 0.82rem; color: var(--aap-text-muted); line-height: 1.5; margin: 0.15rem 0 0; }
+    .si-tag {
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .si-tag--free { background: var(--aap-success-light); color: var(--aap-success); }
+    .si-tag--paid { background: var(--aap-accent-light); color: var(--aap-accent); }
+    .si-tag--deprecated { background: var(--aap-error-light); color: var(--aap-error); }
+
+    .si-note {
+      font-size: 0.82rem;
+      color: var(--aap-text-muted);
+      background: var(--aap-bg-muted);
+      border-radius: 8px;
+      padding: 0.85rem 1.1rem;
+      line-height: 1.55;
+      margin-bottom: 2.5rem;
+    }
+    .si-note code { font-size: 0.8em; }
+
+    @media (max-width: 640px) {
+      .si-diagram-wrap svg { min-width: 600px; }
+    }
+  </style>
+</head>
+<body>
+  <span data-site-version style="display:none;">v260821.02 12:30p</span>
+  <div id="siteHeader"></div>
+
+  <div class="si-container">
+    <a href="/intranet/" class="si-back">&larr; Intranet home</a>
+    <div class="si-header">
+      <h1>System Info</h1>
+      <p>What this deployment runs on: every service in the stack, what it's for, and how data flows between them.</p>
+    </div>
+
+    <!-- Architecture diagram -->
+    <div class="si-diagram-wrap">
+      <svg viewBox="0 0 1000 640" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Architecture diagram: browser and mobile clients talk to Cloudflare, which routes to Supabase, which talks to external services and a Home Server bridging smart-home devices.">
+        <defs>
+          <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+            <path d="M0,0 L8,4 L0,8 Z" fill="#7d6f74"/>
+          </marker>
+        </defs>
+        <style>
+          .box { fill: #fff; stroke: #e6e2d9; stroke-width: 1.5; rx: 10; }
+          .box-accent { fill: #fdf3e8; stroke: #d4883a; stroke-width: 1.5; rx: 10; }
+          .box-dark { fill: #2a1f23; stroke: #2a1f23; rx: 10; }
+          .lbl { font-family: 'DM Sans', -apple-system, sans-serif; font-size: 13px; font-weight: 700; fill: #2a1f23; }
+          .lbl-light { font-family: 'DM Sans', -apple-system, sans-serif; font-size: 13px; font-weight: 700; fill: #faf9f6; }
+          .sub { font-family: 'DM Sans', -apple-system, sans-serif; font-size: 10.5px; fill: #7d6f74; }
+          .sub-light { font-family: 'DM Sans', -apple-system, sans-serif; font-size: 10.5px; fill: #cfc6c8; }
+          .grouplbl { font-family: 'DM Sans', -apple-system, sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.06em; fill: #a89aa0; text-transform: uppercase; }
+          .conn { stroke: #cbbfa8; stroke-width: 1.5; fill: none; marker-end: url(#arrow); }
+        </style>
+
+        <!-- Clients -->
+        <rect x="330" y="10" width="160" height="46" class="box"/>
+        <text x="410" y="30" text-anchor="middle" class="lbl">Browser</text>
+        <text x="410" y="45" text-anchor="middle" class="sub">beartandmusic.pl</text>
+
+        <rect x="510" y="10" width="160" height="46" class="box"/>
+        <text x="590" y="30" text-anchor="middle" class="lbl">Mobile App</text>
+        <text x="590" y="45" text-anchor="middle" class="sub">Capacitor / iOS &amp; Android</text>
+
+        <!-- Cloudflare -->
+        <rect x="280" y="90" width="440" height="70" class="box-accent"/>
+        <text x="500" y="112" text-anchor="middle" class="lbl">Cloudflare Pages + Access</text>
+        <text x="500" y="130" text-anchor="middle" class="sub">Static hosting &middot; CI deploy on push &middot; hostname routing</text>
+        <text x="500" y="145" text-anchor="middle" class="sub">Public: beartandmusic.pl &nbsp;|&nbsp; Internal (Access-gated): in.beartandmusic.pl</text>
+
+        <line x1="410" y1="56" x2="470" y2="90" class="conn"/>
+        <line x1="590" y1="56" x2="530" y2="90" class="conn"/>
+
+        <!-- Supabase -->
+        <rect x="330" y="200" width="340" height="90" class="box-dark"/>
+        <text x="500" y="222" text-anchor="middle" class="lbl-light">Supabase</text>
+        <text x="500" y="238" text-anchor="middle" class="sub-light">Postgres DB &middot; Auth &middot; Storage</text>
+        <text x="500" y="253" text-anchor="middle" class="sub-light">60+ Edge Functions (Deno) &middot; api_usage_log cost tracking</text>
+        <text x="500" y="268" text-anchor="middle" class="sub-light">Centralized REST API for entity CRUD</text>
+
+        <line x1="500" y1="160" x2="500" y2="200" class="conn"/>
+
+        <!-- R2 -->
+        <rect x="60" y="210" width="150" height="46" class="box"/>
+        <text x="135" y="230" text-anchor="middle" class="lbl">Cloudflare R2</text>
+        <text x="135" y="245" text-anchor="middle" class="sub">Object storage (docs, photos)</text>
+        <line x1="330" y1="240" x2="210" y2="233" class="conn"/>
+
+        <!-- Group label row -->
+        <text x="70" y="320" class="grouplbl">Payments</text>
+        <text x="290" y="320" class="grouplbl">Comms</text>
+        <text x="470" y="320" class="grouplbl">AI</text>
+        <text x="620" y="320" class="grouplbl">Docs</text>
+        <text x="770" y="320" class="grouplbl">Smart Home</text>
+
+        <!-- Payments -->
+        <rect x="30" y="330" width="200" height="60" class="box"/>
+        <text x="130" y="352" text-anchor="middle" class="lbl">Stripe / Square / PayPal</text>
+        <text x="130" y="368" text-anchor="middle" class="sub">ACH, card, associate payouts</text>
+        <line x1="330" y1="270" x2="230" y2="345" class="conn"/>
+
+        <!-- Comms -->
+        <rect x="250" y="330" width="180" height="60" class="box"/>
+        <text x="340" y="352" text-anchor="middle" class="lbl">Resend / Telnyx</text>
+        <text x="340" y="368" text-anchor="middle" class="sub">Email &amp; SMS in/out</text>
+        <line x1="400" y1="290" x2="360" y2="330" class="conn"/>
+
+        <!-- AI -->
+        <rect x="450" y="330" width="180" height="60" class="box"/>
+        <text x="540" y="352" text-anchor="middle" class="lbl">Gemini / Vapi / Brave</text>
+        <text x="540" y="368" text-anchor="middle" class="sub">PAI chat, voice, web search</text>
+        <line x1="580" y1="290" x2="555" y2="330" class="conn"/>
+
+        <!-- Docs -->
+        <rect x="650" y="330" width="150" height="60" class="box"/>
+        <text x="725" y="352" text-anchor="middle" class="lbl">SignWell</text>
+        <text x="725" y="368" text-anchor="middle" class="sub">Lease e-signatures</text>
+        <line x1="670" y1="290" x2="720" y2="330" class="conn"/>
+
+        <!-- Smart home group -->
+        <rect x="820" y="330" width="150" height="60" class="box"/>
+        <text x="895" y="352" text-anchor="middle" class="lbl">Nest / Tesla / LG</text>
+        <text x="895" y="368" text-anchor="middle" class="sub">Cloud device APIs</text>
+        <line x1="670" y1="260" x2="820" y2="345" class="conn"/>
+
+        <!-- Home Server -->
+        <rect x="330" y="440" width="340" height="60" class="box-accent"/>
+        <text x="500" y="462" text-anchor="middle" class="lbl">Home Server</text>
+        <text x="500" y="478" text-anchor="middle" class="sub">Tailscale bridge to the LAN &middot; go2rtc, Music Assistant, printer/talkback proxies</text>
+        <line x1="500" y1="290" x2="500" y2="440" class="conn"/>
+
+        <!-- Physical devices -->
+        <rect x="140" y="550" width="720" height="60" class="box"/>
+        <text x="500" y="572" text-anchor="middle" class="lbl">Physical Devices (LAN)</text>
+        <text x="500" y="588" text-anchor="middle" class="sub">Govee lights &middot; Sonos &middot; UniFi cameras &middot; FlashForge printer &middot; Anova oven &middot; Glowforge</text>
+        <line x1="500" y1="500" x2="500" y2="550" class="conn"/>
+
+        <!-- Off to the side: standalone servers -->
+        <rect x="820" y="440" width="150" height="70" class="box"/>
+        <text x="895" y="462" text-anchor="middle" class="lbl">Hostinger VPS</text>
+        <text x="895" y="477" text-anchor="middle" class="sub">OpenClaw chatbot</text>
+        <text x="895" y="490" text-anchor="middle" class="sub">Discord / WhatsApp / Telegram</text>
+        <line x1="670" y1="470" x2="820" y2="470" class="conn"/>
+      </svg>
+    </div>
+
+    <div class="si-note">
+      <strong>How it fits together:</strong> the browser and mobile app both call <code>beartandmusic.pl</code> — Cloudflare Pages serves the static site and routes internal-only pages (residents, associates, admin, directory) to the Access-gated <code>in.beartandmusic.pl</code> subdomain. Nearly everything else goes through <strong>Supabase</strong>: it's the single database, the auth provider, the file store, and the host for ~60 edge functions that talk to every external vendor below. A few things — cameras, Sonos, the 3D printer, and 2-way camera talkback — go through the <strong>Home Server</strong> instead, since those devices only exist on the local network and Supabase edge functions can't reach them directly; the Home Server bridges out over Tailscale.
+    </div>
+
+    <!-- Hosting & Data -->
+    <div class="si-section">
+      <h2>Hosting &amp; Data</h2>
+      <div class="si-grid">
+        <div class="si-card">
+          <div class="si-card-top"><h3>Cloudflare Pages</h3><span class="si-tag si-tag--free">Free</span></div>
+          <p>Hosts this static site. Deploys automatically on every push to <code>main</code>. No server-side code — every page is plain HTML/JS calling Supabase directly.</p>
+        </div>
+        <div class="si-card">
+          <div class="si-card-top"><h3>Cloudflare Access</h3><span class="si-tag si-tag--free">Free</span></div>
+          <p>Gates <code>in.beartandmusic.pl</code> to authorized accounts only, at the edge — before any page code runs.</p>
+        </div>
+        <div class="si-card">
+          <div class="si-card-top"><h3>Supabase</h3><span class="si-tag si-tag--free">Free tier</span></div>
+          <p>Postgres database, authentication, file storage, and ~60 Deno edge functions. This is the backend for essentially everything in the app.</p>
+        </div>
+        <div class="si-card">
+          <div class="si-card-top"><h3>Cloudflare R2</h3><span class="si-tag si-tag--free">Free tier</span></div>
+          <p>S3-compatible object storage for documents (manuals, guides) that PAI can look up. 10&nbsp;GB free, zero egress fees.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Payments -->
+    <div class="si-section">
+      <h2>Payments</h2>
+      <div class="si-grid">
+        <div class="si-card">
+          <div class="si-card-top"><h3>Stripe</h3><span class="si-tag si-tag--paid">Pay-as-you-go</span></div>
+          <p>ACH &amp; card payments from tenants, plus Stripe Connect payouts to associates. 0.8% capped at $5 per ACH transaction.</p>
+        </div>
+        <div class="si-card">
+          <div class="si-card-top"><h3>Square</h3><span class="si-tag si-tag--paid">Pay-as-you-go</span></div>
+          <p>Alternate payment processor for tenant payments. 2.6% + $0.10 per transaction.</p>
+        </div>
+        <div class="si-card">
+          <div class="si-card-top"><h3>PayPal</h3><span class="si-tag si-tag--paid">Pay-as-you-go</span></div>
+          <p>Associate payouts via the Payouts API. $0.25 per payout.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Comms & AI -->
+    <div class="si-section">
+      <h2>Communications &amp; AI</h2>
+      <div class="si-grid">
+        <div class="si-card">
+          <div class="si-card-top"><h3>Resend</h3><span class="si-tag si-tag--free">Free tier</span></div>
+          <p>Sends and receives all system email (45+ branded templates). Inbound routing forwards or auto-processes based on address prefix.</p>
+        </div>
+        <div class="si-card">
+          <div class="si-card-top"><h3>Telnyx</h3><span class="si-tag si-tag--paid">Pay-as-you-go</span></div>
+          <p>SMS in and out — tenant notifications, bulk announcements, and inbound conversations.</p>
+        </div>
+        <div class="si-card">
+          <div class="si-card-top"><h3>Google Gemini</h3><span class="si-tag si-tag--paid">Pay-as-you-go</span></div>
+          <p>Powers PAI (the property AI): chat, smart-home commands, identity verification from ID photos, payment matching, and AI-generated images.</p>
+        </div>
+        <div class="si-card">
+          <div class="si-card-top"><h3>Vapi</h3><span class="si-tag si-tag--paid">Pay-as-you-go</span></div>
+          <p>Voice AI platform — lets PAI take and make phone calls. ~$0.10&ndash;$0.30 per call.</p>
+        </div>
+        <div class="si-card">
+          <div class="si-card-top"><h3>Brave Search</h3><span class="si-tag si-tag--free">Free tier</span></div>
+          <p>Real-time web search tool for PAI — current events, local info, prices. 2,000 free queries/month.</p>
+        </div>
+        <div class="si-card">
+          <div class="si-card-top"><h3>SignWell</h3><span class="si-tag si-tag--free">Free tier</span></div>
+          <p>E-signatures for lease and event agreements. 25 documents/month free.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Smart home -->
+    <div class="si-section">
+      <h2>Smart Home &amp; Devices</h2>
+      <div class="si-grid">
+        <div class="si-card">
+          <div class="si-card-top"><h3>Google Nest</h3><span class="si-tag si-tag--free">Free</span></div>
+          <p>3 thermostats via the Smart Device Management API, controlled directly from a Supabase edge function.</p>
+        </div>
+        <div class="si-card">
+          <div class="si-card-top"><h3>Tesla Fleet API</h3><span class="si-tag si-tag--free">Free</span></div>
+          <p>6 vehicles polled every 5 minutes; lock/unlock/flash commands from the resident app.</p>
+        </div>
+        <div class="si-card">
+          <div class="si-card-top"><h3>LG ThinQ</h3><span class="si-tag si-tag--free">Free</span></div>
+          <p>Washer/dryer status polled every 30s, with push notifications when a cycle ends.</p>
+        </div>
+        <div class="si-card">
+          <div class="si-card-top"><h3>Govee</h3><span class="si-tag si-tag--free">Free</span></div>
+          <p>Cloud API for lighting groups and scenes, proxied through an edge function.</p>
+        </div>
+        <div class="si-card">
+          <div class="si-card-top"><h3>Sonos / Music Assistant</h3><span class="si-tag si-tag--free">Free</span></div>
+          <p>12 zones. Music Assistant on the Home Server is the primary control plane; Sonos's own HTTP API is a fallback for announcements.</p>
+        </div>
+        <div class="si-card">
+          <div class="si-card-top"><h3>UniFi Cameras</h3><span class="si-tag si-tag--free">Free</span></div>
+          <p>3 PTZ cameras streamed via go2rtc on the Home Server, plus two-way talkback audio over FFmpeg.</p>
+        </div>
+        <div class="si-card">
+          <div class="si-card-top"><h3>Anova Oven</h3><span class="si-tag si-tag--free">Free</span></div>
+          <p>Precision oven controlled over a WebSocket API, per-request (no polling worker needed).</p>
+        </div>
+        <div class="si-card">
+          <div class="si-card-top"><h3>Glowforge</h3><span class="si-tag si-tag--free">Free</span></div>
+          <p>Laser cutter status via an undocumented, reverse-engineered cloud API. Read-only.</p>
+        </div>
+        <div class="si-card">
+          <div class="si-card-top"><h3>FlashForge Printer</h3><span class="si-tag si-tag--free">Free</span></div>
+          <p>3D printer controlled over raw TCP G-code, bridged to the web through the Home Server proxy.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Infra / servers -->
+    <div class="si-section">
+      <h2>Servers &amp; Infrastructure</h2>
+      <div class="si-grid">
+        <div class="si-card">
+          <div class="si-card-top"><h3>Home Server</h3><span class="si-tag si-tag--free">Local</span></div>
+          <p>Runs on the local network; the only thing that can reach LAN-only devices (cameras, printer, Sonos). Reachable remotely over Tailscale.</p>
+        </div>
+        <div class="si-card">
+          <div class="si-card-top"><h3>Hostinger VPS</h3><span class="si-tag si-tag--paid">Hosted</span></div>
+          <p>Runs OpenClaw, a multi-channel chatbot gateway (Discord, WhatsApp, Telegram, Slack) fronted by Caddy with auto-HTTPS.</p>
+        </div>
+        <div class="si-card">
+          <div class="si-card-top"><h3>DigitalOcean Droplet</h3><span class="si-tag si-tag--deprecated">Deprecated</span></div>
+          <p>Legacy background workers (bug scout, pollers). Being migrated to Hostinger + Oracle.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="/vendor/supabase-js-2.39.3.min.js"></script>
+  <script type="module" src="/shared/version-info.js"></script>
+  <script type="module">
+    import { initPublicPage } from '/shared/public-shell.js';
+    initPublicPage({ transparent: false, light: true });
+  </script>
+</body>
+</html>

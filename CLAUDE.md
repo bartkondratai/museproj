@@ -15,6 +15,7 @@ This is **alpacapps-infra**. If the user mentions **finleg**, **portsie**, or **
 > - `docs/CHANGELOG.md` — **load for:** understanding recent changes, migration context
 > - `docs/SECRETS-BITWARDEN.md` — **load for:** Bitwarden CLI, secrets management, vault organization, sharing credentials
 > - `docs/OPEN-BRAIN-SETUP.md` — **load for:** Open Brain session dashboard, AI memory, embeddings
+> - `systeminfo/systemdesign.md` — **load for:** adding/removing a service or vendor integration, understanding the full stack
 
 > **IMPORTANT: First-time setup!**
 > Run `/setup-alpacapps-infra` to set up the full infrastructure interactively.
@@ -29,6 +30,7 @@ This is **alpacapps-infra**. If the user mentions **finleg**, **portsie**, or **
 2. Push immediately — Cloudflare Pages deploys on push to main. See `docs/DEPLOY.md`
 3. CI bumps version — never bump locally
 4. Run SQL migrations directly — never ask the user to run SQL manually
+5. Adding, removing, or changing an external service/vendor integration (a new API, edge function calling a paid service, poller, or self-hosted server) → update `systeminfo/systemdesign.md` and the `/systeminfo` page (`systeminfo/index.html`) in the same commit. Also add it to `docs/INTEGRATIONS.md`'s vendor list if it makes paid API calls.
 
 ## Code Guards
 
