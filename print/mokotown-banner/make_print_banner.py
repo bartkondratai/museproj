@@ -14,13 +14,14 @@ Co robi:
   4. Skaluje całość do zadanego rozmiaru w cm przy zadanym DPI
      i zapisuje PNG + PDF + JPG (z osadzoną rozdzielczością).
 
-Wymaga: pillow, qrcode, opencv-python-headless, numpy
+Wymaga: pillow, qrcode, opencv-python-headless, numpy, img2pdf
 """
 import argparse
 import os
 import sys
 
 import cv2
+import img2pdf
 import numpy as np
 import qrcode
 from PIL import Image, ImageDraw
@@ -148,8 +149,12 @@ def main():
     stem = f"mokotown-banner-{args.width_cm:g}x{args.height_cm:g}cm-{args.dpi}dpi"
     dpi = (args.dpi, args.dpi)
     final.save(os.path.join(args.out, stem + ".png"), dpi=dpi)
-    final.save(os.path.join(args.out, stem + ".jpg"), quality=95, dpi=dpi, subsampling=0)
-    final.save(os.path.join(args.out, stem + ".pdf"), resolution=args.dpi)
+    jpg_path = os.path.join(args.out, stem + ".jpg")
+    final.save(jpg_path, quality=95, dpi=dpi, subsampling=0)
+    # PDF: JPG osadzony bez ponownej kompresji, strona dokładnie width_cm x height_cm
+    page_pt = (args.width_cm / CM_PER_INCH * 72, args.height_cm / CM_PER_INCH * 72)
+    with open(os.path.join(args.out, stem + ".pdf"), "wb") as f:
+        f.write(img2pdf.convert(jpg_path, layout_fun=img2pdf.get_layout_fun(page_pt)))
     print("Zapisano:", ", ".join(f"{stem}.{e}" for e in ("png", "jpg", "pdf")), "w", args.out)
 
 
