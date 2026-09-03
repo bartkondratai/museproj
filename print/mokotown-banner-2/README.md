@@ -9,7 +9,11 @@
 2. Podmiana logo: `replace_logo.py POWIEKSZONY.png logo-mokotown.png WYNIK.png 4`
    (stare logo usuwane maską + inpaint, nowe logo dopasowane wysokością do starego,
    wordmark wyrównany do linii „SZKOŁA MUZYCZNA DLA KAŻDEGO”).
-3. QR + eksport: `../mokotown-banner/make_print_banner.py WYNIK.png --out out/`
+3. Korekta koloru: `grade_cooler.py WYNIK.png WYNIK-cool.png`
+   (mniej pomarańczowa skóra: maska po odcieniu H 12–30, nasycenie −25 %, odcień −3°;
+   całość chłodniejsza o ok. 3 %: mniej czerwieni, więcej niebieskiego. Plamy farby,
+   ikony i żółty pasek mają H 32–37 i pozostają nietknięte).
+4. QR + eksport: `../mokotown-banner/make_print_banner.py WYNIK-cool.png --out out/`
    (płytka QR na różowym polu w lewym dolnym rogu wykrywana automatycznie).
 
 ## Gotowe pliki (`out/`)
