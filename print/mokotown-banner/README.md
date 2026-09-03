@@ -43,3 +43,11 @@ podaj ją ręcznie: `--plate x,y,szer,wys` (piksele oryginału).
   `--extend "#111111"` (dopełnia kadr kolorem tła zamiast przeprojektowywać).
 - Surowy plik ~1650 px szerokości daje przy 130 cm tylko ~32 dpi; stąd krok z upscalerem.
 - Minimalny bok QR na banerze oglądanym z 1–2 m: ok. 6–8 cm.
+
+## Wersja ze spadem
+`add_bleed.py` dodaje spad (domyślnie 20 mm z każdej strony) przez lustrzane odbicie krawędzi:
+```bash
+python3 add_bleed.py out/mokotown-banner-130x76cm-150dpi.png --bleed-mm 20 --out out/
+```
+Wynik: `out/mokotown-banner-130x76cm-spad20mm-150dpi.pdf` — strona 134 × 80 cm, TrimBox 130 × 76 cm
+(linia cięcia zapisana w PDF, bez znaczników na grafice) oraz JPG 7913 × 4724 px.

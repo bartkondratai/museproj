@@ -15,3 +15,5 @@
 ## Gotowe pliki (`out/`)
 - `mokotown-banner-130x76cm-150dpi.pdf` — do drukarni, strona 130 × 76 cm.
 - `mokotown-banner-130x76cm-150dpi.jpg` — ten sam obraz jako JPG (jakość 95).
+- `mokotown-banner-130x76cm-spad20mm-150dpi.pdf` / `.jpg` — wersja ze spadem 20 mm
+  (strona 134 × 80 cm, TrimBox 130 × 76 cm), zrobiona `../mokotown-banner/add_bleed.py`.
