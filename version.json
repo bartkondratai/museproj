@@ -1,12 +1,12 @@
 {
-  "version": "v260904.04 9:41p",
-  "release": 4,
-  "sha": "23ae7db",
-  "fullSha": "23ae7db55e3adec24a313996b7b226342cf5bde1",
+  "version": "v260904.05 9:47p",
+  "release": 5,
+  "sha": "3ebedad",
+  "fullSha": "3ebedad880fc97516663effda7b5f48deab06da9",
   "actor": "bartkondratai",
   "source": "cloudflare-pages-deploy",
   "model": "ci",
   "machine": "runnervmejwal",
-  "pushedAt": "2026-09-04T23:41:12+02:00",
-  "commits": [{"sha":"23ae7db","message":"Login pages: BeArt&Music branding instead of AlpacAPPs placeholders","author":"Bartosz Kondrat"}]
+  "pushedAt": "2026-09-04T23:46:46+02:00",
+  "commits": [{"sha":"3ebedad","message":"Add invitation/app_users columns the template auth code expects (invited_at, last_login_at, ...)","author":"Bartosz Kondrat"}]
 }
