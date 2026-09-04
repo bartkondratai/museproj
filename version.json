@@ -1,12 +1,12 @@
 {
-  "version": "v260904.09 10:37p",
-  "release": 9,
-  "sha": "8ad2622",
-  "fullSha": "8ad2622eff51500dc9e26f5d7fed2dfcaa02e7c9",
+  "version": "v260904.10 10:50p",
+  "release": 10,
+  "sha": "598b459",
+  "fullSha": "598b45949b8bb850abf54826b71013c45a5b243b",
   "actor": "bartkondratai",
   "source": "cloudflare-pages-deploy",
   "model": "ci",
   "machine": "runnervmejwal",
-  "pushedAt": "2026-09-05T00:37:06+02:00",
-  "commits": [{"sha":"8ad2622","message":"docs: school tables in SCHEMA.md","author":"Bartosz Kondrat"}]
+  "pushedAt": "2026-09-05T00:49:53+02:00",
+  "commits": [{"sha":"598b459","message":"Mokotown Music Academy branding: logo, favicons, header/footer, login","author":"Bartosz Kondrat"}]
 }
