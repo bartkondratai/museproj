@@ -1,12 +1,12 @@
 {
-  "version": "v260904.02 9:19p",
-  "release": 2,
-  "sha": "c8a1949",
-  "fullSha": "c8a1949bddacad22810eeadd7d6cdbfb50e0a417",
+  "version": "v260904.03 9:36p",
+  "release": 3,
+  "sha": "8f84536",
+  "fullSha": "8f84536b5518704bc948ecb633f7fa7bf2fbef09",
   "actor": "bartkondratai",
   "source": "cloudflare-pages-deploy",
   "model": "ci",
   "machine": "runnervmejwal",
-  "pushedAt": "2026-09-04T23:18:48+02:00",
-  "commits": [{"sha":"c8a1949","message":"strumenti: fix canonical URL placeholder","author":"Bartosz Kondrat"}]
+  "pushedAt": "2026-09-04T23:35:49+02:00",
+  "commits": [{"sha":"8f84536","message":"Own BeArt&Music foundation schema; archive template migrations","author":"Bartosz Kondrat"}]
 }
