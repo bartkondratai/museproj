@@ -1,12 +1,12 @@
 {
-  "version": "v260904.08 10:36p",
-  "release": 8,
-  "sha": "aa68831",
-  "fullSha": "aa68831667ec26d762870e66908a45497c2c9871",
+  "version": "v260904.09 10:37p",
+  "release": 9,
+  "sha": "8ad2622",
+  "fullSha": "8ad2622eff51500dc9e26f5d7fed2dfcaa02e7c9",
   "actor": "bartkondratai",
   "source": "cloudflare-pages-deploy",
   "model": "ci",
   "machine": "runnervmejwal",
-  "pushedAt": "2026-09-05T00:36:38+02:00",
-  "commits": [{"sha":"aa68831","message":"Add /szkola section: leads, teachers + monthly settlements, cancellations, calendar","author":"Bartosz Kondrat"}]
+  "pushedAt": "2026-09-05T00:37:06+02:00",
+  "commits": [{"sha":"8ad2622","message":"docs: school tables in SCHEMA.md","author":"Bartosz Kondrat"}]
 }
