@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Kalendarz — Mokotown Music Academy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/szkola/szkola.css">
+</head>
+<body>
+  <div id="mmHeader"></div>
+  <main class="mm-main">
+    <div class="mm-page-head">
+      <h1>Kalendarz szkoły</h1>
+      <p>Dni wolne, ferie, koncerty i przesłuchania. Jedno miejsce, z którego przenosisz wolne do ActiveNow.</p>
+    </div>
+
+    <section class="mm-card" style="margin-bottom:1.25rem">
+      <h2 id="formTitle">Nowe wydarzenie</h2>
+      <form class="mm-form" id="eventForm">
+        <input type="hidden" name="id">
+        <label class="wide">Nazwa<input name="title" required placeholder="np. Ferie zimowe, Koncert wiosenny"></label>
+        <label>Typ<select name="type" id="typeSel"></select></label>
+        <label>Od<input name="start_date" type="date" required></label>
+        <label>Do<input name="end_date" type="date"></label>
+        <label class="mm-check"><input type="checkbox" name="affects_schedule" checked> Brak lekcji w te dni</label>
+        <label class="wide">Opis<textarea name="description"></textarea></label>
+        <div class="actions">
+          <button type="button" class="mm-btn mm-btn--ghost" id="cancelEdit" hidden>Anuluj</button>
+          <button type="submit" class="mm-btn" id="saveBtn">Dodaj</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="mm-card">
+      <div class="mm-toolbar">
+        <select class="mm-input" id="filterRange">
+          <option value="upcoming">Nadchodzące</option>
+          <option value="all">Wszystkie</option>
+          <option value="past">Minione</option>
+        </select>
+        <select class="mm-input" id="filterType"><option value="">Wszystkie typy</option></select>
+        <div class="spacer"></div>
+        <span class="mm-muted" id="countLabel"></span>
+      </div>
+      <div class="mm-table-wrap">
+        <table class="mm-table">
+          <thead><tr><th>Termin</th><th>Wydarzenie</th><th>Typ</th><th>Lekcje</th><th></th></tr></thead>
+          <tbody id="rows"><tr><td colspan="5" class="mm-empty">Ładowanie…</td></tr></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script src="/vendor/supabase-js-2.39.3.min.js"></script>
+  <script type="module">
+    import { initSzkola, supabase, run, esc, badge, options, fmtDate, formData, nullIfEmpty, todayISO, LABELS } from '/szkola/szkola.js';
+
+    const state = await initSzkola('kalendarz');
+    if (state) {
+      const form = document.getElementById('eventForm');
+      const rows = document.getElementById('rows');
+      const filterRange = document.getElementById('filterRange');
+      const filterType = document.getElementById('filterType');
+      document.getElementById('typeSel').innerHTML = options(LABELS.event_type, 'wolne');
+      for (const [v, l] of Object.entries(LABELS.event_type)) filterType.insertAdjacentHTML('beforeend', `<option value="${v}">${esc(l)}</option>`);
+
+      let all = [];
+
+      async function load() {
+        all = (await run(supabase.from('calendar_events').select('*').order('start_date'))) || [];
+        render();
+      }
+
+      function dayCount(e) {
+        const a = new Date(e.start_date), b = new Date(e.end_date);
+        return Math.round((b - a) / 86400000) + 1;
+      }
+
+      function render() {
+        const today = todayISO();
+        const r = filterRange.value, t = filterType.value;
+        const list = all.filter(e => {
+          if (r === 'upcoming' && e.end_date < today) return false;
+          if (r === 'past' && e.end_date >= today) return false;
+          if (t && e.type !== t) return false;
+          return true;
+        });
+        if (r === 'past') list.reverse();
+        document.getElementById('countLabel').textContent = `${list.length} z ${all.length}`;
+        rows.innerHTML = list.length ? list.map(e => `
+          <tr data-id="${e.id}">
+            <td style="white-space:nowrap">${fmtDate(e.start_date)}${e.end_date !== e.start_date ? ` – ${fmtDate(e.end_date)}<div class="mm-muted">${dayCount(e)} dni</div>` : ''}</td>
+            <td><strong>${esc(e.title)}</strong>${e.description ? `<div class="mm-muted">${esc(e.description)}</div>` : ''}</td>
+            <td>${badge(e.type, LABELS.event_type)}</td>
+            <td>${e.affects_schedule ? '<span class="mm-badge mm-badge--danger">brak lekcji</span>' : '<span class="mm-muted">bez zmian</span>'}</td>
+            <td class="row-actions"><button class="mm-btn mm-btn--ghost mm-btn--sm" data-act="edit">Edytuj</button> <button class="mm-btn mm-btn--danger mm-btn--sm" data-act="del">Usuń</button></td>
+          </tr>`).join('') : '<tr><td colspan="5" class="mm-empty">Brak wydarzeń w tym widoku.</td></tr>';
+      }
+
+      rows.addEventListener('click', async (e) => {
+        const btn = e.target.closest('button[data-act]'); if (!btn) return;
+        const id = btn.closest('tr').dataset.id;
+        const ev = all.find(x => x.id === id);
+        if (btn.dataset.act === 'edit') {
+          for (const k of ['title', 'type', 'start_date', 'end_date', 'description']) form.elements[k].value = ev[k] ?? '';
+          form.elements.affects_schedule.checked = ev.affects_schedule;
+          form.elements.id.value = id;
+          document.getElementById('formTitle').textContent = `Edycja: ${ev.title}`;
+          document.getElementById('saveBtn').textContent = 'Zapisz zmiany';
+          document.getElementById('cancelEdit').hidden = false;
+          form.scrollIntoView({ behavior: 'smooth' });
+        }
+        if (btn.dataset.act === 'del' && confirm(`Usunąć „${ev.title}”?`)) {
+          if (await run(supabase.from('calendar_events').delete().eq('id', id), 'Usunięto')) await load();
+        }
+      });
+
+      function resetForm() {
+        form.reset();
+        form.elements.id.value = '';
+        document.getElementById('formTitle').textContent = 'Nowe wydarzenie';
+        document.getElementById('saveBtn').textContent = 'Dodaj';
+        document.getElementById('cancelEdit').hidden = true;
+      }
+      document.getElementById('cancelEdit').addEventListener('click', resetForm);
+
+      form.elements.start_date.addEventListener('change', () => {
+        if (!form.elements.end_date.value || form.elements.end_date.value < form.elements.start_date.value) form.elements.end_date.value = form.elements.start_date.value;
+      });
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const d = formData(form);
+        const id = d.id;
+        const payload = {
+          title: d.title, type: d.type, start_date: d.start_date, end_date: d.end_date || d.start_date,
+          affects_schedule: !!d.affects_schedule, description: nullIfEmpty(d.description),
+        };
+        if (payload.end_date < payload.start_date) { alert('Data „Do” nie może być wcześniejsza niż „Od”.'); return; }
+        const q = id ? supabase.from('calendar_events').update(payload).eq('id', id) : supabase.from('calendar_events').insert(payload);
+        if (await run(q.select().single(), id ? 'Zapisano' : 'Dodano')) { resetForm(); await load(); }
+      });
+
+      filterRange.addEventListener('change', render);
+      filterType.addEventListener('change', render);
+      await load();
+    }
+  </script>
+</body>
+</html>

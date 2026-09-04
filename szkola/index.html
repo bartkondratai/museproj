@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Dziś — Mokotown Music Academy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/szkola/szkola.css">
+</head>
+<body>
+  <div id="mmHeader"></div>
+  <main class="mm-main">
+    <div class="mm-page-head">
+      <h1 id="greeting">Dziś</h1>
+      <p id="todayLabel"></p>
+    </div>
+
+    <div class="mm-grid mm-grid--3" style="margin-bottom:1.25rem">
+      <a href="/szkola/leady.html" class="mm-card mm-card--link">
+        <h2>Leady</h2>
+        <div class="mm-stat" id="statLeads">–<small>nowych</small></div>
+        <div class="mm-muted" id="statLeadsDue"></div>
+      </a>
+      <a href="/szkola/odwolania.html" class="mm-card mm-card--link">
+        <h2>Odwołania</h2>
+        <div class="mm-stat" id="statCancel">–<small>do odrobienia</small></div>
+        <div class="mm-muted" id="statCancelMonth"></div>
+      </a>
+      <a href="/szkola/nauczyciele.html" class="mm-card mm-card--link">
+        <h2>Rozliczenia</h2>
+        <div class="mm-stat" id="statSettle">–<small>do wypłaty</small></div>
+        <div class="mm-muted" id="statSettleMonth"></div>
+      </a>
+    </div>
+
+    <div class="mm-grid mm-grid--2">
+      <section class="mm-card">
+        <h2>Najbliższe w kalendarzu</h2>
+        <div id="upcoming" class="mm-empty">Ładowanie…</div>
+        <p class="mm-muted" style="margin:0.75rem 0 0"><a href="/szkola/kalendarz.html">Cały kalendarz →</a></p>
+      </section>
+      <section class="mm-card">
+        <h2>Leady do kontaktu</h2>
+        <div id="leadsDue" class="mm-empty">Ładowanie…</div>
+        <p class="mm-muted" style="margin:0.75rem 0 0"><a href="/szkola/leady.html">Wszystkie leady →</a></p>
+      </section>
+      <section class="mm-card">
+        <h2>Ostatnie odwołania</h2>
+        <div id="recentCancel" class="mm-empty">Ładowanie…</div>
+      </section>
+      <section class="mm-card">
+        <h2>Skróty</h2>
+        <ul style="margin:0;padding-left:1.1rem;line-height:2">
+          <li><a href="https://app.activenow.io" target="_blank" rel="noopener">ActiveNow — grafik i uczniowie</a></li>
+          <li><a href="/szkola/leady.html#nowy">Dodaj leada</a></li>
+          <li><a href="/szkola/odwolania.html#nowe">Zapisz odwołaną lekcję</a></li>
+          <li><a href="/szkola/nauczyciele.html#rozliczenie">Rozliczenie miesiąca</a></li>
+          <li><a href="/intranet/">Intranet — pozostałe narzędzia</a></li>
+        </ul>
+      </section>
+    </div>
+  </main>
+
+  <script src="/vendor/supabase-js-2.39.3.min.js"></script>
+  <script type="module">
+    import { initSzkola, supabase, run, esc, badge, fmtDate, fmtMoney, todayISO, monthISO, monthLabel, LABELS } from '/szkola/szkola.js';
+
+    const state = await initSzkola('dzis');
+    if (state) {
+      const today = todayISO();
+      const period = monthISO();
+      const name = (state.appUser?.display_name || '').split(' ')[0];
+      const hour = new Date().getHours();
+      document.getElementById('greeting').textContent = `${hour < 5 || hour >= 18 ? 'Dobry wieczór' : 'Dzień dobry'}${name ? ', ' + name : ''}`;
+      document.getElementById('todayLabel').textContent = new Date().toLocaleDateString('pl-PL', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+
+      const in30 = new Date(); in30.setDate(in30.getDate() + 30);
+      const in30ISO = in30.toISOString().slice(0, 10);
+      const monthStart = period + '-01';
+
+      const count = async (q) => { const { count, error } = await q; return error ? '–' : count; };
+      const [leadsDue, settleOpen, upcoming, recentCancel, leadsNew, cancelOpen, cancelMonth, active] = await Promise.all([
+        run(supabase.from('leads').select('id, name, phone, instrument, status, next_action_at').in('status', ['nowy', 'kontakt', 'lekcja_probna']).lte('next_action_at', today).order('next_action_at').limit(8)),
+        run(supabase.from('teacher_settlements').select('total, status').eq('period', period)),
+        run(supabase.from('calendar_events').select('*').gte('end_date', today).lte('start_date', in30ISO).order('start_date').limit(8)),
+        run(supabase.from('lesson_cancellations').select('id, lesson_date, student_name, status, duration_min, teachers(name)').order('lesson_date', { ascending: false }).limit(6)),
+        count(supabase.from('leads').select('id', { count: 'exact', head: true }).eq('status', 'nowy')),
+        count(supabase.from('lesson_cancellations').select('id', { count: 'exact', head: true }).eq('status', 'do_odrobienia')),
+        count(supabase.from('lesson_cancellations').select('id', { count: 'exact', head: true }).gte('lesson_date', monthStart)),
+        count(supabase.from('teachers').select('id', { count: 'exact', head: true }).eq('is_active', true)),
+      ]);
+
+      document.getElementById('statLeads').innerHTML = `${leadsNew}<small>nowych</small>`;
+      document.getElementById('statLeadsDue').textContent = leadsDue?.length ? `${leadsDue.length} do kontaktu dziś lub zaległych` : 'Brak zaległych kontaktów';
+      document.getElementById('statCancel').innerHTML = `${cancelOpen}<small>do odrobienia</small>`;
+      document.getElementById('statCancelMonth').textContent = `${cancelMonth} odwołań w tym miesiącu`;
+      const unpaid = (settleOpen || []).filter(s => s.status === 'do_wyplaty');
+      const unpaidSum = unpaid.reduce((a, s) => a + Number(s.total || 0), 0);
+      document.getElementById('statSettle').innerHTML = `${unpaid.length}<small>do wypłaty · ${fmtMoney(unpaidSum)}</small>`;
+      document.getElementById('statSettleMonth').textContent = `${monthLabel(period)}: rozliczonych ${(settleOpen || []).length} z ${active} nauczycieli`;
+
+      document.getElementById('upcoming').outerHTML = upcoming?.length
+        ? `<table class="mm-table"><tbody>${upcoming.map(e => `<tr><td style="white-space:nowrap">${fmtDate(e.start_date)}${e.end_date !== e.start_date ? ' – ' + fmtDate(e.end_date) : ''}</td><td>${esc(e.title)}</td><td>${badge(e.type, LABELS.event_type)}</td></tr>`).join('')}</tbody></table>`
+        : '<div class="mm-empty">Nic w ciągu 30 dni.</div>';
+
+      document.getElementById('leadsDue').outerHTML = leadsDue?.length
+        ? `<table class="mm-table"><tbody>${leadsDue.map(l => `<tr><td>${esc(l.name)}<div class="mm-muted">${esc(l.instrument || '')} ${l.phone ? '· ' + esc(l.phone) : ''}</div></td><td>${badge(l.status, LABELS.lead_status)}</td><td style="white-space:nowrap">${fmtDate(l.next_action_at)}</td></tr>`).join('')}</tbody></table>`
+        : '<div class="mm-empty">Nikt nie czeka na kontakt.</div>';
+
+      document.getElementById('recentCancel').outerHTML = recentCancel?.length
+        ? `<table class="mm-table"><tbody>${recentCancel.map(c => `<tr><td style="white-space:nowrap">${fmtDate(c.lesson_date)}</td><td>${esc(c.student_name)}<div class="mm-muted">${esc(c.teachers?.name || '')} · ${c.duration_min} min</div></td><td>${badge(c.status, LABELS.cancel_status)}</td></tr>`).join('')}</tbody></table>`
+        : '<div class="mm-empty">Brak odwołań.</div>';
+    }
+  </script>
+</body>
+</html>

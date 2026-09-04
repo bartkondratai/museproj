@@ -15,6 +15,7 @@ const INTERNAL_PREFIXES = [
   '/login',
   '/systeminfo',
   '/intranet',
+  '/szkola',
 ];
 
 function isInternalPath(pathname) {
