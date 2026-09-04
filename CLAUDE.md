@@ -31,6 +31,7 @@ This is **alpacapps-infra**. If the user mentions **finleg**, **portsie**, or **
 3. CI bumps version — never bump locally
 4. Run SQL migrations directly — never ask the user to run SQL manually
 5. Adding, removing, or changing an external service/vendor integration (a new API, edge function calling a paid service, poller, or self-hosted server) → update `systeminfo/systemdesign.md` and the `/systeminfo` page (`systeminfo/index.html`) in the same commit. Also add it to `docs/INTEGRATIONS.md`'s vendor list if it makes paid API calls.
+6. When a task is "write new code" (a function, component, script, edge function, query) and is well-scoped, delegate the generation to the `deepseek-coder` subagent (routes to DeepSeek v4 Flash via OpenRouter, see `scripts/ask-deepseek.js`) instead of writing it yourself. Don't delegate planning, architecture decisions, debugging, or research.
 
 ## Code Guards
 

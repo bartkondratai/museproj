@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Zabawny, 2-minutowy quiz Mokotown Music Academy pomoże Ci znaleźć instrument dla siebie.">
+  <link rel="canonical" href="https://YOUR_DOMAIN/instrumenti/">
+  <title>Jaki instrument jest dla mnie? — Mokotown Music Academy</title>
+  <link rel="stylesheet" href="/styles/site.css">
+  <style>
+    :root { --quiz-ink: var(--aap-text, #2a1f23); --quiz-muted: var(--aap-text-muted, #7d6f74); --quiz-card: #fffdf9; --quiz-soft: var(--aap-accent-light, rgba(212,136,58,.1)); }
+    body { min-height:100vh; background:radial-gradient(circle at 10% 0%, #fff4df 0, transparent 35%), var(--aap-bg, #faf9f6); color:var(--quiz-ink); }
+    .quiz-shell { max-width:760px; margin:0 auto; padding:2rem 1rem 4rem; }
+    .quiz-top { display:flex; align-items:center; justify-content:space-between; gap:1rem; margin-bottom:2rem; }
+    .quiz-brand { color:var(--quiz-ink); font-weight:700; letter-spacing:-.02em; }
+    .quiz-top a:last-child { color:var(--aap-accent); font-size:.9rem; font-weight:600; }
+    .quiz-panel { background:var(--quiz-card); border:1px solid var(--aap-border); border-radius:var(--aap-radius-lg, 16px); box-shadow:var(--aap-shadow-lg); padding:clamp(1.5rem, 5vw, 3.5rem); overflow:hidden; }
+    .quiz-panel[hidden] { display:none; }
+    .eyebrow { color:var(--aap-accent); font-size:.78rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; }
+    h1 { font-size:clamp(2.3rem, 8vw, 4.8rem); line-height:.98; letter-spacing:-.055em; margin:.7rem 0 1.25rem; max-width:10ch; }
+    h2 { font-size:clamp(1.55rem, 4vw, 2.25rem); margin:.75rem 0 1.5rem; letter-spacing:-.035em; }
+    .lead { color:var(--quiz-muted); font-size:1.1rem; max-width:45ch; }
+    .note { background:var(--quiz-soft); border-left:3px solid var(--aap-accent); border-radius:0 var(--aap-radius) var(--aap-radius) 0; color:var(--quiz-muted); font-size:.92rem; margin:1.5rem 0; padding:1rem 1.1rem; }
+    .btn { border:1px solid transparent; border-radius:var(--aap-radius); cursor:pointer; font:inherit; font-weight:700; padding:.8rem 1.2rem; transition:transform var(--aap-transition), background var(--aap-transition), border-color var(--aap-transition); }
+    .btn:hover:not(:disabled), .btn:focus-visible { transform:translateY(-2px); }
+    .btn:focus-visible, .answer:focus-visible { outline:3px solid var(--aap-accent); outline-offset:3px; }
+    .btn-primary { background:var(--aap-accent); color:#fff; box-shadow:var(--aap-shadow); }
+    .btn-primary:hover:not(:disabled) { background:var(--aap-accent-hover); }
+    .btn-secondary { background:transparent; border-color:var(--aap-border); color:var(--quiz-ink); }
+    .btn:disabled { cursor:not-allowed; opacity:.45; }
+    .quiz-progress { display:flex; align-items:center; gap:.75rem; color:var(--quiz-muted); font-size:.85rem; font-weight:700; margin-bottom:2rem; }
+    .progress-track { background:var(--aap-border); border-radius:99px; flex:1; height:8px; overflow:hidden; }
+    .progress-bar { background:var(--aap-accent); height:100%; transition:width var(--aap-transition-slow); }
+    .answers { display:grid; gap:.75rem; }
+    .answer { background:var(--aap-bg); border:2px solid var(--aap-border); border-radius:var(--aap-radius); color:var(--quiz-ink); cursor:pointer; font:inherit; padding:1rem 1.1rem; text-align:left; transition:background var(--aap-transition), border-color var(--aap-transition), transform var(--aap-transition); }
+    .answer:hover, .answer[aria-checked="true"] { background:var(--quiz-soft); border-color:var(--aap-accent); transform:translateX(4px); }
+    .quiz-actions { display:flex; justify-content:space-between; gap:.75rem; margin-top:1.5rem; }
+    .quiz-actions .link-btn { background:none; border:0; color:var(--quiz-muted); cursor:pointer; font:inherit; padding:.8rem 0; text-decoration:underline; }
+    .result-mark { color:var(--aap-accent); font-size:3.5rem; line-height:1; }
+    .result-name { color:var(--aap-accent); font-size:clamp(2rem, 7vw, 3.6rem); letter-spacing:-.05em; margin:.35rem 0 1rem; }
+    .result-copy { background:var(--quiz-soft); border-radius:var(--aap-radius); font-size:1.05rem; line-height:1.65; padding:1.25rem; }
+    .alternatives { display:grid; grid-template-columns:repeat(2, 1fr); gap:.75rem; margin:1.25rem 0; }
+    .alternative { border:1px solid var(--aap-border); border-radius:var(--aap-radius); padding:.9rem; }
+    .alternative strong { display:block; margin-bottom:.25rem; }
+    .alternative span { color:var(--quiz-muted); font-size:.9rem; }
+    .result-actions { align-items:center; display:flex; flex-wrap:wrap; gap:1rem; margin-top:1.5rem; }
+    .result-actions a { color:var(--aap-accent); font-weight:700; }
+    .sr-only { border:0; clip:rect(0 0 0 0); height:1px; margin:-1px; overflow:hidden; padding:0; position:absolute; white-space:nowrap; width:1px; }
+    @media (max-width:560px) { .quiz-shell { padding-top:1rem; } .quiz-top { margin-bottom:1rem; } .alternatives { grid-template-columns:1fr; } .quiz-actions { align-items:stretch; flex-direction:column-reverse; } .quiz-actions .btn { width:100%; } }
+  </style>
+</head>
+<body>
+  <main class="quiz-shell">
+    <nav class="quiz-top" aria-label="Nawigacja">
+      <a class="quiz-brand" href="https://www.mokotownmusic.pl/">♫ Mokotown Music</a>
+      <a href="https://www.mokotownmusic.pl/zajecia/">Zobacz zajęcia ↗</a>
+    </nav>
+
+    <section id="intro" class="quiz-panel">
+      <span class="eyebrow">Muzyczny kompas</span>
+      <h1>Jaki instrument jest dla mnie?</h1>
+      <p class="lead">Odpowiedz na kilka intuicyjnych pytań i sprawdź, z którym brzmieniem możesz złapać najlepszy kontakt.</p>
+      <p class="note">To zabawny punkt wyjścia, nie naukowa diagnoza. Najlepszą odpowiedź znajdziesz, próbując i rozmawiając z nauczycielem.</p>
+      <button id="start" class="btn btn-primary" type="button">Rozpocznij 2-minutowy quiz →</button>
+    </section>
+
+    <section id="quiz" class="quiz-panel" hidden aria-labelledby="question" aria-live="polite">
+      <div class="quiz-progress"><span id="counter">Pytanie 1 z 7</span><span class="progress-track"><span id="progress" class="progress-bar" style="width:0%"></span></span></div>
+      <p class="eyebrow">Pierwsze skojarzenie jest najlepsze</p>
+      <h2 id="question"></h2>
+      <div id="answers" class="answers" role="radiogroup" aria-label="Odpowiedzi"></div>
+      <div class="quiz-actions"><button id="back" class="btn btn-secondary" type="button">← Wstecz</button><button id="next" class="btn btn-primary" type="button" disabled>Dalej →</button></div>
+      <button id="restart" class="link-btn" type="button">Zacznij od nowa</button>
+    </section>
+
+    <section id="result" class="quiz-panel" hidden aria-labelledby="result-name" aria-live="polite">
+      <span class="result-mark" aria-hidden="true">✦</span><p class="eyebrow">Twój muzyczny trop</p>
+      <h2 id="result-name" class="result-name"></h2><p id="result-copy" class="result-copy"></p>
+      <p class="eyebrow" style="margin-top:1.75rem">Możesz też sprawdzić</p><div id="alternatives" class="alternatives"></div>
+      <p class="note">Wynik jest inspiracją, nie wyrocznią. Na pierwszej lekcji nauczyciel pomoże Ci sprawdzić, czy to naprawdę „Twoje” brzmienie.</p>
+      <div class="result-actions"><a class="btn btn-primary" href="https://www.mokotownmusic.pl/zapisy/" target="_blank" rel="noopener">Zapisz się na lekcję ↗</a><button id="retake" class="btn btn-secondary" type="button">Powtórz quiz</button></div>
+    </section>
+    <p id="announce" class="sr-only" aria-live="polite" aria-atomic="true"></p>
+  </main>
+
+  <script>
+    (() => {
+      const instruments = [
+        { id:'gitara', name:'Gitara', cue:'akordy, melodie i własny styl' }, { id:'ukulele', name:'Ukulele', cue:'cztery struny i dużo radości' },
+        { id:'bas', name:'Gitara basowa', cue:'niskie tony, groove i praca zespołowa' }, { id:'perkusja', name:'Perkusja', cue:'rytm, energia i ruch' },
+        { id:'pianino', name:'Pianino', cue:'melodia i harmonia w jednym miejscu' }, { id:'wokal', name:'Wokal', cue:'głos, tekst, mikrofon i scena' },
+        { id:'produkcja', name:'Produkcja muzyczna', cue:'songwriting, nagrywanie i eksperymenty' }, { id:'handpan', name:'Handpan', cue:'spokój, dotyk i intuicyjny rytm' },
+        { id:'saksofon', name:'Saksofon', cue:'oddech, improwizacja i jazz/pop' }, { id:'flet', name:'Flet poprzeczny', cue:'czyste brzmienie, oddech i muzyka filmowa' }
+      ];
+      const questions = [
+        { text:'Co najbardziej przyciąga Cię w muzyce?', answers:[['Rytm, który rusza całe ciało',{perkusja:3,bas:2}],['Melodia i piękne akordy',{pianino:3,gitara:2}],['Tworzenie własnych światów dźwiękowych',{produkcja:3,handpan:1}],['Emocje i opowiadanie historii',{wokal:3,saksofon:2}]] },
+        { text:'W jakiej sytuacji najchętniej zagrasz?', answers:[['Przy ognisku lub z przyjaciółmi',{ukulele:3,gitara:2}],['W zespole, trzymając z innymi groove',{bas:3,perkusja:2}],['Na scenie, dla publiczności',{wokal:3,saksofon:2}],['W domowym studio, po swojemu',{produkcja:3,pianino:1}]] },
+        { text:'Które brzmienie brzmi jak Twój klimat?', answers:[['Ciepłe i akustyczne',{gitara:3,ukulele:2}],['Głębokie i pulsujące',{bas:3,perkusja:2}],['Powietrzne i klarowne',{flet:3,pianino:1}],['Pełne oddechu i charakteru',{saksofon:3,wokal:2}]] },
+        { text:'Jak uczysz się najchętniej?', answers:[['Przez zabawę i szybkie małe sukcesy',{ukulele:3,gitara:1}],['Powtarzając ruch, aż wejdzie w ciało',{perkusja:3,pianino:2}],['Słuchając i naśladując',{wokal:2,flet:2,gitara:1}],['Eksperymentując bez instrukcji',{produkcja:3,saksofon:2,handpan:1}]] },
+        { text:'Co najbardziej motywuje Cię do ćwiczeń?', answers:[['Własna piosenka do zagrania',{gitara:3,pianino:2,wokal:1}],['Poczucie, że zespół na mnie polega',{bas:3,perkusja:2}],['Chwila wyciszenia tylko dla siebie',{handpan:3,flet:1}],['Nowy pomysł, który mogę nagrać',{produkcja:3,saksofon:1}]] },
+        { text:'Jaki jesteś, kiedy coś tworzysz?', answers:[['Pełen energii i ekspresji',{perkusja:2,wokal:3}],['Cierpliwy i uważny na szczegóły',{pianino:3,flet:2}],['Towarzyski i spontaniczny',{ukulele:2,gitara:2,bas:1}],['Ciekawy, lubię łączyć nieoczywiste rzeczy',{produkcja:3,saksofon:2}]] },
+        { text:'Wybierz muzyczną pocztówkę z przyszłości.', answers:[['Gram ulubiony refren i wszyscy śpiewają',{gitara:3,ukulele:2,wokal:1}],['Zespół wchodzi razem w jeden mocny rytm',{perkusja:3,bas:3}],['Moja melodia brzmi jak scena z filmu',{pianino:2,flet:3,saksofon:1}],['Właśnie skończyłem własny numer w studiu',{produkcja:3,handpan:1}]] }
+      ];
+      const state = { question:0, selected:new Array(questions.length).fill(null) };
+      const $ = id => document.getElementById(id), all = id => document.querySelectorAll(id);
+      const announce = message => { $('announce').textContent = message; };
+      const setPanel = panel => { ['intro','quiz','result'].forEach(id => $(id).hidden = id !== panel); };
+      function renderQuestion() {
+        const q = questions[state.question]; $('counter').textContent = `Pytanie ${state.question + 1} z ${questions.length}`; $('progress').style.width = `${((state.question + 1) / questions.length) * 100}%`; $('question').textContent = q.text; $('answers').innerHTML = '';
+        q.answers.forEach(([label]) => { const button = document.createElement('button'); button.type='button'; button.className='answer'; button.textContent=label; button.setAttribute('role','radio'); button.setAttribute('aria-checked', state.selected[state.question] === label ? 'true' : 'false'); button.addEventListener('click', () => choose(label)); $('answers').appendChild(button); });
+        $('back').disabled = state.question === 0; $('next').disabled = !state.selected[state.question]; announce(`${$('counter').textContent}. ${q.text}`); $('answers').querySelector('button')?.focus();
+      }
+      function choose(label) { state.selected[state.question] = label; all('#answers .answer').forEach(button => button.setAttribute('aria-checked', button.textContent === label ? 'true' : 'false')); $('next').disabled=false; announce(`Wybrano: ${label}`); }
+      function ranking() { const scores = Object.fromEntries(instruments.map(({id}) => [id,0])); questions.forEach((q,i) => { const answer=q.answers.find(([label]) => label === state.selected[i]); Object.entries(answer?.[1] || {}).forEach(([id,points]) => scores[id] += points); }); return instruments.map(item => ({...item, score:scores[item.id]})).sort((a,b) => b.score-a.score || a.name.localeCompare(b.name)); }
+      function showResult() { const ranked=ranking(), [top,...rest]=ranked; $('result-name').textContent=top.name; $('result-copy').textContent=`${top.cue}. Twoje odpowiedzi sugerują, że właśnie taki rodzaj muzycznej przygody może dać Ci najwięcej frajdy.`; $('alternatives').innerHTML=''; rest.slice(0,2).forEach(item => { const card=document.createElement('div'); card.className='alternative'; card.innerHTML=`<strong>${item.name}</strong><span>${item.cue}</span>`; $('alternatives').appendChild(card); }); setPanel('result'); announce(`Wynik: ${top.name}. ${top.cue}`); }
+      function start() { state.question=0; state.selected.fill(null); setPanel('quiz'); renderQuestion(); }
+      $('start').addEventListener('click', start); $('retake').addEventListener('click', start); $('restart').addEventListener('click', start); $('back').addEventListener('click', () => { if(state.question>0){state.question--;renderQuestion();} }); $('next').addEventListener('click', () => { if(!state.selected[state.question]) return; if(state.question === questions.length-1) showResult(); else {state.question++;renderQuestion();} });
+    })();
+  </script>
+</body>
+</html>

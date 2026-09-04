@@ -1,6 +1,6 @@
 // Supabase client configuration with auth support
-const SUPABASE_URL = 'YOUR_SUPABASE_URL';
-const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
+const SUPABASE_URL = 'https://gcbdraagnpdpihcucsqq.supabase.co';
+const SUPABASE_ANON_KEY = 'sb_publishable_iriexLirMkq3YirI91fn2g_rA1HROJ6';
 
 // Wait for Supabase to be available (handles race condition with script loading)
 function waitForSupabase(maxAttempts = 50) {
@@ -31,7 +31,7 @@ if (window.supabase?.createClient) {
       persistSession: true,
       detectSessionInUrl: true,
       storage: window.localStorage,
-      storageKey: 'your-project-auth',
+      storageKey: 'beartandmusic-auth',
       flowType: 'pkce',
     },
   });
@@ -44,7 +44,7 @@ if (window.supabase?.createClient) {
       persistSession: true,
       detectSessionInUrl: true,
       storage: window.localStorage,
-      storageKey: 'your-project-auth',
+      storageKey: 'beartandmusic-auth',
       flowType: 'pkce',
     },
   });

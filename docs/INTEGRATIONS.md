@@ -296,16 +296,18 @@ The accounting admin page (`spaces/admin/accounting.html`) should show:
 - **API**: OpenAI-compatible REST API (`https://openrouter.ai/api/v1`)
 - **Auth**: `Authorization: Bearer sk-or-v1-...` header
 - **Dashboard**: https://openrouter.ai/settings/keys
-- **Status**: Not yet integrated — stored for future use as Gemini alternative
-- **Why OpenRouter**: Access to 200+ models (MiniMax-M1, DeepSeek R1, Qwen, Llama, Mistral, etc.) through a single API key with OpenAI-compatible interface
-- **Notable models for our use case**:
+- **Credential**: Stored in Bitwarden as `OpenRouter — API Key` (`aidev` folder)
+- **Status**: Live for one use case — Claude Code's `deepseek-coder` subagent (see `.claude/agents/deepseek-coder.md`) delegates code generation to it via `scripts/ask-deepseek.js`. Not wired into any edge function/runtime path yet.
+- **Default model**: `deepseek/deepseek-v4-flash`
+- **Why OpenRouter**: Access to 200+ models (MiniMax-M1, DeepSeek, Qwen, Llama, Mistral, etc.) through a single API key with OpenAI-compatible interface
+- **Other notable models**:
   - `minimax/minimax-m1` — MiniMax-M1 reasoning model, competitive pricing
   - `deepseek/deepseek-r1` — strong reasoning, very cheap
   - `google/gemini-2.5-flash` — same Gemini Flash we use now, but via OpenRouter
   - `qwen/qwen-2.5-72b-instruct` — strong open-source alternative
-- **Integration pattern**: Drop-in replacement for Gemini in edge functions — same chat completion API shape as OpenAI
-- **Supabase Secret (when ready)**: `OPENROUTER_API_KEY`
-- **Cost tracking**: Will use vendor `openrouter` in `api_usage_log`
+- **Integration pattern**: Drop-in replacement for Gemini in edge functions — same chat completion API shape as OpenAI (not yet done)
+- **Supabase Secret (when ready)**: `OPENROUTER_API_KEY` (not yet set — only used locally via `scripts/ask-deepseek.js` today)
+- **Cost tracking**: Will use vendor `openrouter` in `api_usage_log` once wired into a runtime path
 - **Pricing**: Pass-through per model — see https://openrouter.ai/models
 
 ### AI Image Generation (Gemini)

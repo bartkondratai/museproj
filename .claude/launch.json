@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "static-site",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["/Users/bartoszkondrat/Documents/codingprojects/museproj/scripts/dev-server.js"],
+      "port": 8787
+    }
+  ]
+}
