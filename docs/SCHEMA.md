@@ -78,6 +78,29 @@ curl -s -X POST "https://api.supabase.com/v1/projects/gcbdraagnpdpihcucsqq/datab
   -d '{"query":"select 1"}'
 ```
 
+## School operations (`/szkola/`, migration `20260905001500_szkola.sql`)
+
+```
+teachers               - Teachers, no intranet login (name, email, phone, instruments [text[]],
+                         rate_30/rate_45/rate_60 [PLN per lesson], contract_type
+                         [umowa_zlecenie/umowa_o_dzielo/b2b/inna], is_active, notes)
+teacher_settlements    - One row per teacher per month (teacher_id, period 'YYYY-MM',
+                         lessons_30/45/60, rate_30/45/60 snapshot, total [generated],
+                         status [do_wyplaty/wyplacone], paid_at, notes). Unique (teacher_id, period)
+leads                  - Enquiries before ActiveNow (name, phone, email, instrument, student_age,
+                         source [formularz/quiz/telefon/polecenie/social/inne],
+                         status [nowy/kontakt/lekcja_probna/zapisany/rezygnacja],
+                         preferred_days, next_action_at, notes, converted_at)
+lesson_cancellations   - Cancellation / make-up log (lesson_date, lesson_time, student_name,
+                         teacher_id, duration_min [30/45/60], cancelled_by [uczen/nauczyciel/szkola],
+                         reason, status [do_odrobienia/odrobiona/zwrot/przepada], makeup_date, notes)
+calendar_events        - Holidays, breaks, concerts (title, type [wolne/ferie/koncert/przesluchanie/
+                         dzien_otwarty/inne], start_date, end_date, affects_schedule, description)
+                         anon may read (for the public site); staff write
+```
+
+RLS on all five: `is_staff()` for everything. Pages: `szkola/*.html`, shared shell `szkola/szkola.js`.
+
 ## Template pages that still expect template tables
 
 `directory/`, `residents/`, `associates/`, `spaces/admin/*` query tables that do not
