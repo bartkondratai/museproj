@@ -1,12 +1,12 @@
 {
-  "version": "v260821.10 4:20p",
-  "release": 10,
-  "sha": "6d4cea3",
-  "fullSha": "6d4cea34455e124920cadf299da99906d33b0859",
+  "version": "v260904.01 9:17p",
+  "release": 1,
+  "sha": "71cf38d",
+  "fullSha": "71cf38d74f52a1398ef30e8bcea71307477f8edc",
   "actor": "bartkondratai",
   "source": "cloudflare-pages-deploy",
   "model": "ci",
-  "machine": "runnervm76f27",
-  "pushedAt": "2026-08-21T18:20:17+02:00",
-  "commits": [{"sha":"077d549","message":"Update /bart bio: correct career framing, add Fundacja BeArt & Music, refresh links","author":"Bart Kondrat"},{"sha":"6d4cea3","message":"Merge remote-tracking branch 'origin/main'","author":"Bartosz Kondrat"}]
+  "machine": "runnervmejwal",
+  "pushedAt": "2026-09-04T23:17:25+02:00",
+  "commits": [{"sha":"71cf38d","message":"Restore Supabase setup on production: real project config, vendor supabase-js, dev tooling","author":"Bartosz Kondrat"}]
 }
