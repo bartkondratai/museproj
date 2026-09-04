@@ -60,7 +60,7 @@ Dev tooling (not runtime services): Claude Code, Codex → OpenRouter/DeepSeek
 
 | Service | Cost | What it does |
 |---|---|---|
-| Supabase | Free tier | Postgres database, authentication, file storage, and the edge functions this app calls. |
+| Supabase | Free tier | Postgres database, authentication, file storage, and the edge functions this app calls. Project `beartdata` (eu-west-1). Own minimal schema (accounts, permissions, config, contacts) — see `docs/SCHEMA.md`; school data stays in ActiveNow. Free tier pauses the project after 7 idle days; restore from the dashboard. |
 
 ## Communications & AI
 
