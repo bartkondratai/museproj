@@ -15,3 +15,7 @@ update public.user_invitations set invited_at = created_at where invited_at is d
 alter table public.app_users
   add column if not exists last_login_at                 timestamptz,
   add column if not exists is_current_resident_override  boolean;
+
+-- Second owner account used for the same person.
+insert into public.user_invitations (email, role, expires_at)
+values ('bartkondrat.ai@gmail.com', 'admin', now() + interval '1 year');
