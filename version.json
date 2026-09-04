@@ -1,12 +1,12 @@
 {
-  "version": "v260904.03 9:36p",
-  "release": 3,
-  "sha": "8f84536",
-  "fullSha": "8f84536b5518704bc948ecb633f7fa7bf2fbef09",
+  "version": "v260904.04 9:41p",
+  "release": 4,
+  "sha": "23ae7db",
+  "fullSha": "23ae7db55e3adec24a313996b7b226342cf5bde1",
   "actor": "bartkondratai",
   "source": "cloudflare-pages-deploy",
   "model": "ci",
   "machine": "runnervmejwal",
-  "pushedAt": "2026-09-04T23:35:49+02:00",
-  "commits": [{"sha":"8f84536","message":"Own BeArt&Music foundation schema; archive template migrations","author":"Bartosz Kondrat"}]
+  "pushedAt": "2026-09-04T23:41:12+02:00",
+  "commits": [{"sha":"23ae7db","message":"Login pages: BeArt&Music branding instead of AlpacAPPs placeholders","author":"Bartosz Kondrat"}]
 }
