@@ -15,7 +15,7 @@
 **GitHub** holds the source and runs the deploy on every push to `main`. The browser
 calls `beartandmusic.pl` for the public site; internal-only paths redirect to
 `in.beartandmusic.pl`, which Cloudflare Access gates behind Google sign-in, restricted to
-a single allowed account. Everything server-side goes through **Supabase**: it's the
+the two owner Google accounts. Everything server-side goes through **Supabase**: it's the
 database, the auth provider, the file store, and the host for the edge functions. Those
 functions call out to **Resend** for email and **OpenRouter** for AI-assisted features.
 
