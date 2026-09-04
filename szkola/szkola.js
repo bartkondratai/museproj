@@ -55,9 +55,9 @@ function renderHeader(activeKey, state) {
   target.innerHTML = `
     <header class="mm-header">
       <div class="mm-header__inner">
-        <a class="mm-brand" href="/szkola/">
-          <strong>Mokotown Music Academy</strong>
-          <span>Fundacja BeArt &amp; Music · intranet</span>
+        <a class="mm-brand" href="/szkola/" title="Mokotown Music Academy — intranet">
+          <img src="/assets/branding/mokotown/logo.svg" alt="Mokotown Music Academy" width="108" height="40">
+          <span>intranet</span>
         </a>
         <nav class="mm-nav">
           ${NAV.map(n => `<a href="${n.href}" class="${n.key === activeKey ? 'active' : ''}">${n.label}</a>`).join('')}

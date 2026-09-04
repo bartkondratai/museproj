@@ -23,9 +23,9 @@ a { color: var(--mm-accent-hover); }
 /* Header */
 .mm-header { background: #fff; border-bottom: 1px solid var(--mm-border); position: sticky; top: 0; z-index: 20; }
 .mm-header__inner { max-width: 1200px; margin: 0 auto; padding: 0 1.25rem; display: flex; align-items: center; gap: 1.5rem; height: 60px; }
-.mm-brand { display: flex; flex-direction: column; line-height: 1.15; text-decoration: none; color: inherit; }
-.mm-brand strong { font-size: 1rem; letter-spacing: -0.01em; }
-.mm-brand span { font-size: 0.7rem; color: var(--mm-text-muted); text-transform: uppercase; letter-spacing: 0.06em; }
+.mm-brand { display: flex; align-items: center; gap: 0.6rem; text-decoration: none; color: inherit; }
+.mm-brand img { height: 40px; width: auto; display: block; }
+.mm-brand span { font-size: 0.68rem; color: var(--mm-text-muted); text-transform: uppercase; letter-spacing: 0.08em; padding: 0.15rem 0.5rem; border: 1px solid var(--mm-border); border-radius: 999px; }
 .mm-nav { display: flex; gap: 0.25rem; flex: 1; overflow-x: auto; }
 .mm-nav a { padding: 0.45rem 0.8rem; border-radius: 999px; text-decoration: none; color: var(--mm-text); font-weight: 500; white-space: nowrap; font-size: 0.92rem; }
 .mm-nav a:hover { background: var(--mm-bg-muted); }

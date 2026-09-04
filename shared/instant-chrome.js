@@ -36,13 +36,12 @@
     // CSS applies .aap-header__icon { height: 30px }.
     var header = document.getElementById('siteHeader');
     if (header && !header.children.length) {
-      var logoBase = 'YOUR_SUPABASE_URL/storage/v1/object/public/housephotos/logos';
+      var logoBase = '/assets/branding/mokotown';
       header.innerHTML =
         '<header class="aap-header aap-header--solid aap-header--dark" id="aap-header">' +
           '<div class="aap-header__inner">' +
             '<a href="/" class="aap-header__logo">' +
-              '<img src="' + logoBase + '/logo-black-transparent.png" alt="" class="aap-header__icon" width="21" height="30" style="height:30px;width:auto;max-width:none">' +
-              '<img src="' + logoBase + '/wordmark-black-transparent.png" alt="YOUR_PROPERTY_NAME" class="aap-header__wordmark" width="22" height="22" style="height:22px;width:auto;max-width:none">' +
+              '<img src="' + logoBase + '/logo-white.svg" alt="Mokotown Music Academy" class="aap-header__icon" width="118" height="44" style="height:44px;width:auto;max-width:none">' +
             '</a>' +
             '<div id="aapHeaderAuth" class="aap-header-auth"></div>' +
           '</div>' +
