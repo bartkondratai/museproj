@@ -234,7 +234,7 @@
     </div>
 
     <div class="si-note">
-      <strong>How it fits together:</strong> <strong>GitHub</strong> holds the source and runs the deploy on every push to <code>main</code>. The browser calls <code>beartandmusic.pl</code> for the public site; internal-only paths redirect to <code>in.beartandmusic.pl</code>, which Cloudflare Access gates behind Google sign-in, restricted to a single allowed account. Everything server-side goes through <strong>Supabase</strong> &mdash; the database, auth provider, file store, and edge function host. Those functions call out to <strong>Resend</strong> for email and <strong>OpenRouter</strong> for AI-assisted features.
+      <strong>How it fits together:</strong> <strong>GitHub</strong> holds the source and runs the deploy on every push to <code>main</code>. The browser calls <code>beartandmusic.pl</code> for the public site; internal-only paths redirect to <code>in.beartandmusic.pl</code>, which Cloudflare Access gates behind Google sign-in, restricted to the two owner Google accounts. Everything server-side goes through <strong>Supabase</strong> &mdash; the database, auth provider, file store, and edge function host. Those functions call out to <strong>Resend</strong> for email and <strong>OpenRouter</strong> for AI-assisted features.
     </div>
 
     <div class="si-section">

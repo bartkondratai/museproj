@@ -31,7 +31,7 @@ Browser
    │
    ▼
 Cloudflare Pages + Access  (public: beartandmusic.pl · internal: in.beartandmusic.pl)
-   │                        Access login: Google OAuth, bart.kondrat@gmail.com only
+   │                        Access login: Google OAuth, bart.kondrat@gmail.com + bartkondrat.ai@gmail.com
    ▼
 Supabase (Postgres DB · Auth · Storage · Edge Functions)
    │
@@ -48,7 +48,7 @@ Dev tooling (not runtime services): Claude Code, Codex → OpenRouter/DeepSeek
 | Cloudflare Pages | Free | Hosts this static site. Deploys automatically via GitHub Actions on every push to `main`. |
 | Cloudflare DNS | Free | DNS and SSL for `beartandmusic.pl` and `in.beartandmusic.pl`. |
 | Cloudflare Access | Free | Gates `in.beartandmusic.pl` at the edge, before any page code runs. |
-| Google OAuth | Free | Identity provider for Cloudflare Access — sign-in restricted to `bart.kondrat@gmail.com`. |
+| Google OAuth | Free | Identity provider for Cloudflare Access — sign-in restricted to `bart.kondrat@gmail.com` and `bartkondrat.ai@gmail.com`. |
 
 ## Source Control & CI
 
@@ -81,7 +81,7 @@ Dev tooling (not runtime services): Claude Code, Codex → OpenRouter/DeepSeek
 | Domain | Purpose |
 |---|---|
 | `beartandmusic.pl` | Public-facing pages |
-| `in.beartandmusic.pl` | Internal pages — Cloudflare Access-gated (Google OAuth, single allowed account) |
+| `in.beartandmusic.pl` | Internal pages — Cloudflare Access-gated (Google OAuth, two owner accounts) |
 
 Routing is enforced by `functions/_middleware.js`. See `docs/DEPLOY.md` for Cloudflare
 setup details.
