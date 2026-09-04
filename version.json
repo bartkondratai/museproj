@@ -1,12 +1,12 @@
 {
-  "version": "v260904.05 9:47p",
-  "release": 5,
-  "sha": "3ebedad",
-  "fullSha": "3ebedad880fc97516663effda7b5f48deab06da9",
+  "version": "v260904.06 9:47p",
+  "release": 6,
+  "sha": "35e4ced",
+  "fullSha": "35e4ced70c308b75e400db42e041dd9e125d147d",
   "actor": "bartkondratai",
   "source": "cloudflare-pages-deploy",
   "model": "ci",
   "machine": "runnervmejwal",
-  "pushedAt": "2026-09-04T23:46:46+02:00",
-  "commits": [{"sha":"3ebedad","message":"Add invitation/app_users columns the template auth code expects (invited_at, last_login_at, ...)","author":"Bartosz Kondrat"}]
+  "pushedAt": "2026-09-04T23:47:23+02:00",
+  "commits": [{"sha":"35e4ced","message":"Invite bartkondrat.ai@gmail.com as admin","author":"Bartosz Kondrat"}]
 }
