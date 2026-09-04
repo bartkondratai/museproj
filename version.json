@@ -1,12 +1,12 @@
 {
-  "version": "v260904.07 10:11p",
-  "release": 7,
-  "sha": "13b4015",
-  "fullSha": "13b4015e22bdf33a5a41751145bdbba85074e250",
+  "version": "v260904.08 10:36p",
+  "release": 8,
+  "sha": "aa68831",
+  "fullSha": "aa68831667ec26d762870e66908a45497c2c9871",
   "actor": "bartkondratai",
   "source": "cloudflare-pages-deploy",
   "model": "ci",
   "machine": "runnervmejwal",
-  "pushedAt": "2026-09-05T00:11:29+02:00",
-  "commits": [{"sha":"13b4015","message":"systeminfo: finish two-account wording","author":"Bartosz Kondrat"}]
+  "pushedAt": "2026-09-05T00:36:38+02:00",
+  "commits": [{"sha":"aa68831","message":"Add /szkola section: leads, teachers + monthly settlements, cancellations, calendar","author":"Bartosz Kondrat"}]
 }
