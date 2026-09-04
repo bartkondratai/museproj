@@ -1,12 +1,12 @@
 {
-  "version": "v260904.01 9:17p",
-  "release": 1,
-  "sha": "71cf38d",
-  "fullSha": "71cf38d74f52a1398ef30e8bcea71307477f8edc",
+  "version": "v260904.02 9:19p",
+  "release": 2,
+  "sha": "c8a1949",
+  "fullSha": "c8a1949bddacad22810eeadd7d6cdbfb50e0a417",
   "actor": "bartkondratai",
   "source": "cloudflare-pages-deploy",
   "model": "ci",
   "machine": "runnervmejwal",
-  "pushedAt": "2026-09-04T23:17:25+02:00",
-  "commits": [{"sha":"71cf38d","message":"Restore Supabase setup on production: real project config, vendor supabase-js, dev tooling","author":"Bartosz Kondrat"}]
+  "pushedAt": "2026-09-04T23:18:48+02:00",
+  "commits": [{"sha":"c8a1949","message":"strumenti: fix canonical URL placeholder","author":"Bartosz Kondrat"}]
 }
