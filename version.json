@@ -1,12 +1,12 @@
 {
-  "version": "v260904.10 10:50p",
-  "release": 10,
-  "sha": "598b459",
-  "fullSha": "598b45949b8bb850abf54826b71013c45a5b243b",
+  "version": "v261007.01 9:39a",
+  "release": 1,
+  "sha": "debc606",
+  "fullSha": "debc606cbc988fb92d5d73e05c5ed05eb5317c97",
   "actor": "bartkondratai",
   "source": "cloudflare-pages-deploy",
   "model": "ci",
-  "machine": "runnervmejwal",
-  "pushedAt": "2026-09-05T00:49:53+02:00",
-  "commits": [{"sha":"598b459","message":"Mokotown Music Academy branding: logo, favicons, header/footer, login","author":"Bartosz Kondrat"}]
+  "machine": "runnervm8df0l",
+  "pushedAt": "2026-10-07T11:39:24+02:00",
+  "commits": [{"sha":"debc606","message":"chore: ignore .env.local (local secrets)","author":"Bartosz Kondrat"}]
 }
